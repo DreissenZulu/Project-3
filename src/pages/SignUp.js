@@ -4,7 +4,7 @@ let warning = 0;
 
 function SignUp() {
     const [formInput, setFormInput] = useState({
-        username: "",
+        email: "",
         firstName: "",
         lastName: "",
         password: ""
@@ -31,8 +31,8 @@ function SignUp() {
 
     function handleInputChange(event) {
         switch (event.target.id) {
-            case ("user"):
-                setFormInput({ ...formInput, username: event.target.value })
+            case ("email"):
+                setFormInput({ ...formInput, email: event.target.value })
                 break;
             case ("first-name"):
                 setFormInput({ ...formInput, firstName: event.target.value })
@@ -54,10 +54,10 @@ function SignUp() {
                 <h1 className="text-center">Create an account</h1>
                 <form onSubmit={handleFormSubmit}>
                     <div className="form-group">
-                        <label><i><strong> Username</strong></i></label>
-                        <input className="form-control form-control-lg" id="user" autoComplete="off" onChange={handleInputChange} />
+                        <label><i><strong> Email</strong></i></label>
+                        <input className="form-control form-control-lg" id="email" autoComplete="off" onChange={handleInputChange} />
                         <small id="alertTaken" className="form-text text-danger" style={{ display: formState.userValidStyle }}>
-                            This username has already been taken!
+                            This email is already in use!
                         </small>
                     </div>
                     <div className="form-group">
