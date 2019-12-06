@@ -55,18 +55,18 @@ function SignUp() {
                 <form onSubmit={handleFormSubmit}>
                     <div className="form-group">
                         <label><i><strong> Username</strong></i></label>
-                        <input className="form-control form-control-lg" id="user" onChange={handleInputChange} />
+                        <input className="form-control form-control-lg" id="user" autoComplete="off" onChange={handleInputChange} />
                         <small id="alertTaken" className="form-text text-danger" style={{ display: formState.userValidStyle }}>
                             This username has already been taken!
-                    </small>
+                        </small>
                     </div>
                     <div className="form-group">
                         <label><i><strong> First Name</strong></i></label>
-                        <input className="form-control form-control-lg" id="first-name" onChange={handleInputChange} />
+                        <input className="form-control form-control-lg" id="first-name" autoComplete="off" onChange={handleInputChange} />
                     </div>
                     <div className="form-group">
                         <label><i><strong> Last Name</strong></i></label>
-                        <input className="form-control form-control-lg" id="last-name" onChange={handleInputChange} />
+                        <input className="form-control form-control-lg" id="last-name" autoComplete="off" onChange={handleInputChange} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="exampleInputPassword1"><i><strong> Password</strong></i></label>
