@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import SearchBar from "../components/SearchBar";
 import SearchResults from "../components/SearchResults";
 import axios from 'axios';
 
 function Landing() {
-    const [ search, setSearch ] = useState("")
-    // const [ results, setResults ] = useState()
+    const [search, setSearch] = useState("")
+    const [results, setResults] = useState([])
 
     function handleSearch(event) {
         setSearch(event.target.value);
@@ -15,11 +15,10 @@ function Landing() {
         event.preventDefault();
         try {
             let searchResults = await axios.get(`/search/${search}`)
-            console.log(searchResults)
+            setResults(searchResults.data);
         } catch (err) {
             console.log(err)
         }
-
     }
 
     return (
@@ -30,8 +29,8 @@ function Landing() {
                     <p className="lead">The job board for connecting Freelancers</p>
                 </div>
             </div>
-            <SearchBar handleSearch={handleSearch} submitSearch={submitSearch}/>
-            {/* <SearchResults /> */}
+            <SearchBar handleSearch={handleSearch} submitSearch={submitSearch} />
+            <SearchResults results={results} />
         </div>
     )
 }
