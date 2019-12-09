@@ -2,11 +2,10 @@ import React from 'react';
 import Navbar from "react-bootstrap/Navbar";
 import { Link, NavLink } from "react-router-dom";
 
-function NavBar(props) {
-  console.log(props)
+function NavBar() {
   return (
     <Navbar sticky="top" bg="light" expand="md">
-      <Link to="/" className="navbar-brand">Infact</Link>
+      <Link to="/" className="navbar-brand">Working Title</Link>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <ul className="navbar-nav ml-auto">
