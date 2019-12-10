@@ -30,7 +30,9 @@ function Landing() {
                 </div>
             </div>
             <SearchBar handleSearch={handleSearch} submitSearch={submitSearch} />
-            <SearchResults results={results} />
+            <div className="container">
+                <SearchResults results={results} />
+            </div>
         </div>
     )
 }
