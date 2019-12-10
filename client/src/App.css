@@ -2,3 +2,20 @@ html, body {
     height: 100%;
     margin: 0;
   }
+
+  .card-img {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+#root {
+  margin-bottom: 0 !important;
+}
+
+@media (min-width: 768px) {
+  #jobSideBar {
+    position: sticky;
+    height: 90vh;
+    top: 56px;
+  }
+}
