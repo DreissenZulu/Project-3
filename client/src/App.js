@@ -5,7 +5,6 @@ import Landing from "./pages/Landing";
 import Profile from "./pages/Profile";
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
-import Footer from "./components/Footer";
 import "./App.css";
 
 function App() {
@@ -17,7 +16,6 @@ function App() {
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={LogIn} />
-        <Footer />
       </main>
     </Router>
   );
