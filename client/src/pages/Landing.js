@@ -4,17 +4,24 @@ import SearchResults from "../components/SearchResults";
 import axios from 'axios';
 
 function Landing() {
-    const [search, setSearch] = useState("")
+    const [search, setSearch] = useState({
+        query: "",
+        location: ""
+    })
     const [results, setResults] = useState([])
 
     function handleSearch(event) {
-        setSearch(event.target.value);
+        if (event.target.name === "search") {
+            setSearch({...search, query: event.target.value});
+        } else if (event.target.name === "location") {
+            setSearch({...search, location: event.target.value});
+        }
     }
 
     async function submitSearch(event) {
         event.preventDefault();
         try {
-            let searchResults = await axios.get(`/search/${search}`)
+            let searchResults = await axios.get(`/search/${search.query}`)
             setResults(searchResults.data);
         } catch (err) {
             console.log(err)
