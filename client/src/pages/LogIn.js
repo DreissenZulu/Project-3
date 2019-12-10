@@ -40,7 +40,7 @@ function LogIn() {
     }
 
     return (
-        <div className="content row">
+        <div className="container">
             <div className="container col-xl-5 col-lg-6 col-md-8 col-sm-10">
                 <h1 className="text-center">Log In</h1>
                 <form onSubmit={handleFormSubmit}>
