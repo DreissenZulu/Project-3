@@ -1,26 +1,27 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import NavBar from "./components/NavBar";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Profile from "./pages/Profile";
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
-import Footer from "./components/Footer";
 import JobDetails from './pages/JobDetails';
+import Hero from './pages/Hero';
+import Layout from './components/Layout'
 import "./App.css";
 
 function App() {
   return (
     <Router>
-      <main>
-        <NavBar />
-        <Route exact path="/" component={Landing} />
-        <Route exact path="/profile" component={Profile} />
-        <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/login" component={LogIn} />
-        <Route path="/post/:id" component={JobDetails} />
-      </main>
-      <Footer />
+        <Layout>
+          <Switch>
+            <Route exact path="/" component={Hero} />
+            <Route exact path="/home" component={Landing} />
+            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/login" component={LogIn} />
+            <Route path="/post/:id" component={JobDetails} />
+          </Switch>
+        </Layout>
     </Router>
   );
 }
