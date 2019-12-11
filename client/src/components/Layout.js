@@ -9,7 +9,7 @@ function Layout(props) {
     // withRouter allows us to get the current route as a prop, as long as we export the function as a parameter of withRouter
     const { location, children } = props;
 
-    let renderNav = location.pathname !== "/" ? (<NavBar />) : "";
+    let renderNav = location.pathname !== "/"  ? (<NavBar />) : "";
     let renderFooter = location.pathname !== "/" ? (<Footer />) : "";
 
     return (
