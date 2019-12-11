@@ -5,11 +5,11 @@ function FillInfo(props) {
     if (jobInfo) {
         return (
             <div className="row d-flex">
-                <div className="col-md-4 bg-secondary" id="jobSideBar">
+                <div className="col-md-4 bg-light" id="jobSideBar">
+                    <img src={"https://" + props.jobInfo.company.logo.split("https://")[2]} className="posting-img" alt="..." />
                     <h1>{jobInfo.title}</h1>
                     <h3>{jobInfo.category.name} at <a href={jobInfo.company.url} target="_blank" rel="noopener noreferrer" >{jobInfo.company.name}</a></h3>
-                    <img src={"https://" + jobInfo.company.logo.split("https://")[2]} className="card-img" alt="..." />
-                    <h3><a href={props.jobInfo.apply_url}>Apply Here!</a></h3>
+                    <a className="btn btn-primary" href={props.jobInfo.apply_url}>Apply Here!</a>
                 </div>
                 <div className="col-md-8">
                     <div dangerouslySetInnerHTML={{ __html: jobInfo.description }} />
@@ -19,7 +19,11 @@ function FillInfo(props) {
         )
     } else {
         return (
-            <h1>Loading</h1>
+            <div className="d-flex justify-content-center">
+                <div className="spinner-border mt-5" style={{width: "3rem", height: "3rem"}} role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            </div>
         )
     }
 }
