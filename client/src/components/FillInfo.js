@@ -1,13 +1,13 @@
 import React from 'react';
 
 function FillInfo(props) {
-    let jobInfo = props.jobInfo.listing
+    let jobInfo = props.jobInfo.listing;
     if (jobInfo) {
         return (
             <div className="row d-flex">
                 <div className="col-md-4 bg-secondary" id="jobSideBar">
                     <h1>{jobInfo.title}</h1>
-                    <h3>{jobInfo.category.name} at <a href={jobInfo.company.url} target="_blank">{jobInfo.company.name}</a></h3>
+                    <h3>{jobInfo.category.name} at <a href={jobInfo.company.url} target="_blank" rel="noopener noreferrer" >{jobInfo.company.name}</a></h3>
                     <img src={"https://" + jobInfo.company.logo.split("https://")[2]} className="card-img" alt="..." />
                     <h3><a href={props.jobInfo.apply_url}>Apply Here!</a></h3>
                 </div>
