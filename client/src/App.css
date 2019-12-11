@@ -3,6 +3,10 @@ html, body {
     margin: 0;
   }
 
+.btn {
+  margin-bottom: 15px;
+}
+
 .card-img {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -38,6 +42,17 @@ html, body {
   user-select: none;
 }
 
+.posting-img {
+  max-width: 100%;
+  margin: auto;
+}
+
+#jobSideBar {
+  text-align: center;
+  padding-top: 56px;
+  margin-top: 0px;
+}
+
 #root {
   margin-bottom: 0 !important;
 }
@@ -45,8 +60,8 @@ html, body {
 @media (min-width: 768px) {
   #jobSideBar {
     position: sticky;
-    height: 90vh;
-    top: 56px;
+    height: 100vh;
+    top: 0;
   }
   .hero-inner {
     text-align: left;
