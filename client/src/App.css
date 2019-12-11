@@ -3,10 +3,40 @@ html, body {
     margin: 0;
   }
 
-  .card-img {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
+.card-img {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.hero {
+  background-image: url("./assets/background-beverage-breakfast-brown-414645.jpg");
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-inner {
+  text-align: center;
+  text-shadow: 0 0 10px black;
+}
+
+.hero-inner h1 {
+  font-size: 3em;
+  padding-bottom: 10px;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
 #root {
   margin-bottom: 0 !important;
@@ -17,5 +47,8 @@ html, body {
     position: sticky;
     height: 90vh;
     top: 56px;
+  }
+  .hero-inner {
+    text-align: left;
   }
 }
