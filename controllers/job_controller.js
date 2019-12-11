@@ -16,7 +16,6 @@ router.get("/search/:search", async (req, res) => {
 router.get("/api/post/:id", async (req, res) => {
     let queryURL = `https://authenticjobs.com/api/?format=json&api_key=${process.env.AJ_API}&method=aj.jobs.get&id=${req.params.id}`
     let results = await axios.get(queryURL)
-    console.log(results.data)
     res.send(results.data);
 })
 
