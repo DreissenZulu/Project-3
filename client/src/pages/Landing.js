@@ -25,11 +25,15 @@ function Landing() {
 
     async function submitSearch(event) {
         event.preventDefault();
-        try {
-            let searchResults = await axios.get(`/search/${search.query}`)
-            setResults(searchResults.data);
-        } catch (err) {
-            console.log(err)
+        if (search.type === "jobs") {
+            try {
+                let searchResults = await axios.get(`/search/${search.query}`)
+                setResults(searchResults.data);
+            } catch (err) {
+                console.log(err)
+            }
+        } else if (search.type === "people") {
+            console.log("Here's where you call the database")
         }
     }
 
@@ -45,10 +49,10 @@ function Landing() {
             <div className="container">
                 <h2>I'm looking for...</h2>
                 <div className="row">
-                    <div className="col-6">
+                    <div className="col-lg-6">
                         <button className={search.type === "jobs" ? "btn search-type-btn text-light job-btn-select" : "btn search-type-btn text-light job-btn-deselect"} onClick={handleType} value="jobs">Jobs</button>
                     </div>
-                    <div className="col-6">
+                    <div className="col-lg-6">
                         <button className={search.type === "people" ? "btn search-type-btn text-light people-btn-select" : "btn search-type-btn text-light people-btn-deselect"} onClick={handleType} value="people">People</button>
                     </div>
                 </div>
