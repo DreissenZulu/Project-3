@@ -13,7 +13,7 @@ function FillInfo(props) {
                 </div>
                 <div className="col-md-8">
                     <div dangerouslySetInnerHTML={{ __html: jobInfo.description }} />
-                    <p><strong>Keywords:</strong> {jobInfo.keywords ? jobInfo.keywords.replace(/[\,]/g, ", ") : ""}</p>
+                    <p><strong>Keywords:</strong> {jobInfo.keywords ? jobInfo.keywords.replace(/[,]/g, ", ") : ""}</p>
                 </div>
             </div>
         )
