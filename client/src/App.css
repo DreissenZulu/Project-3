@@ -118,6 +118,18 @@ html, body {
   margin: auto;
 }
 
+.profile-bio {
+  text-align: justify;
+}
+
+.rounded-pf-image {
+  height: 200px;
+  width: 200px;
+  border-radius: 10rem;
+  border: 4px solid white;
+  margin: 10px 0 10px 0;
+}
+
 #jobSideBar {
   text-align: center;
   padding-top: 56px;
