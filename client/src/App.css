@@ -33,6 +33,77 @@ html, body {
   padding-bottom: 10px;
 }
 
+.search-type-btn {
+  display:inline-block;
+  width: 100%;
+  height: 250px;
+  font-size: 3rem !important;
+  text-shadow: 0 0 10px black;
+  border-color: #ddd;
+}
+
+.job-btn-select {
+  position: relative;
+  background: url("./assets/apple-devices-books-business-coffee-572056.jpg");
+  background-size: 102%;
+  background-position: center;
+  -webkit-transition: background-size 0.5s ease !important;
+  -moz-transition: background-size 0.5s ease !important;
+  -o-transition: background-size 0.5s ease !important;
+  transition: background-size 0.5s ease !important;
+}
+
+.job-btn-select:hover {
+  background-size: 120%;
+}
+
+.job-btn-deselect {
+  position: relative;
+  background: url("./assets/apple-devices-books-business-coffee-572056.jpg");
+  filter: grayscale(100%);
+  background-size: 102%;
+  background-position: center;
+  -webkit-transition: background-size 0.5s ease !important;
+  -moz-transition: background-size 0.5s ease !important;
+  -o-transition: background-size 0.5s ease !important;
+  transition: background-size 0.5s ease !important;
+}
+
+.job-btn-deselect:hover {
+  background-size: 120%;
+}
+
+.people-btn-select {
+  position: relative;
+  background: url("./assets/adult-african-american-woman-blur-business-1181352.jpg");
+  background-size: 102%;
+  background-position: center;
+  -webkit-transition: background-size 0.5s ease !important;
+  -moz-transition: background-size 0.5s ease !important;
+  -o-transition: background-size 0.5s ease !important;
+  transition: background-size 0.5s ease !important;
+}
+
+.people-btn-select:hover {
+  background-size: 120%;
+}
+
+.people-btn-deselect {
+  position: relative;
+  background: url("./assets/adult-african-american-woman-blur-business-1181352.jpg");
+  filter: grayscale(100%);
+  background-size: 102%;
+  background-position: center; 
+  -webkit-transition: background-size 0.5s ease !important;
+  -moz-transition: background-size 0.5s ease !important;
+  -o-transition: background-size 0.5s ease !important;
+  transition: background-size 0.5s ease !important;
+}
+
+.people-btn-deselect:hover {
+  background-size: 120%;
+}
+
 .noselect {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
