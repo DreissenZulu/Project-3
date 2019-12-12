@@ -1,6 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function Profile() {
+    const [profileInfo, setProfileInfo] = useState("")
+
+    useEffect(() => {
+        let profileID = window.location.pathname.split("/")[1]
+        if (profileID !== undefined) {
+            fetchUser()
+        }
+    }, [])
+
+    useEffect(() => {
+        fetchUser()
+    }, [profileInfo])
+
+    async function fetchUser() {
+        if (jobInfo === "") {
+            try {
+                let profileData = await axios.get(`/api/user/${profileID}`)
+                setProfileInfo(profileData.data);
+            } catch (err) {
+                console.log(err)
+            }
+        }
+    }
+
     return (
         <div>
             <div className="container">

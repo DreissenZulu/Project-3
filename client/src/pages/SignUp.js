@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 let warning = 0;
 
@@ -19,7 +20,26 @@ function SignUp() {
         event.preventDefault();
         let confirmInput = Object.values(formInput).filter(value => { return value !== "" })
         if (confirmInput.length === 4) {
-            console.log("All areas filled!")
+            console.log("All areas filled!");
+                        
+            let sendObj = {};
+            sendObj.email = Object.values(formInput)[0];
+            sendObj.firstName = Object.values(formInput)[1];
+            sendObj.lastName = Object.values(formInput)[2];
+            sendObj.password = Object.values(formInput)[3];
+
+            let url = '/register';
+            axios.post(url, sendObj)
+
+            .then((data)=>{
+                /* Set insertId into localStrorage, redirect to profile page */
+                window.localStorage.setItem('currUser', data.data.insertId);
+                window.location.pathname = `/profile/${data.data.insertId}`;
+            })
+            .catch((err)=>{
+                console.log(err, 'err')
+            });
+
         } else {
             clearTimeout(warning);
             setFormState({ ...formState, formValidStyle: "block" })

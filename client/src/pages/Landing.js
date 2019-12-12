@@ -12,6 +12,9 @@ function Landing() {
     const [results, setResults] = useState([])
 
     function handleSearch(event) {
+        if (results === "none") {
+            setResults([])
+        }
         if (event.target.name === "search") {
             setSearch({ ...search, query: event.target.value });
         } else if (event.target.name === "location") {
@@ -28,7 +31,11 @@ function Landing() {
         if (search.type === "jobs") {
             try {
                 let searchResults = await axios.get(`/search/${search.query}`)
-                setResults(searchResults.data);
+                if (searchResults.data.length === 0) {
+                    setResults("none");
+                } else {
+                    setResults(searchResults.data);
+                }
             } catch (err) {
                 console.log(err)
             }
@@ -60,7 +67,7 @@ function Landing() {
 
             <SearchBar searchType={search.type} handleSearch={handleSearch} submitSearch={submitSearch} />
             <div className="container">
-                <SearchResults results={results} />
+                <SearchResults search={search} results={results} />
             </div>
         </div>
     )
