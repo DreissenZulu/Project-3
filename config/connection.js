@@ -18,8 +18,13 @@ if (process.env.JAWSDB_URL) {
   connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
-    user: "root",
-    password: "steven123",
+
+    // user: "root",
+    // password: "steven123",
+
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+
     database: "InFactDB"
   });
 }
