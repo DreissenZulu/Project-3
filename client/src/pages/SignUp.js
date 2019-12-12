@@ -29,13 +29,16 @@ function SignUp() {
             sendObj.password = Object.values(formInput)[3];
 
             let url = '/register';
-            axios.post(url, JSON.stringify(sendObj))
-            .then((resp)=>resp.json())
-            .then((data)=>{
+            axios.post(url, sendObj)
 
-                console.log(data, 'data');
+            .then((data)=>{
+                /* Set insertId into localStrorage, redirect to profile page */
+                window.localStorage.setItem('currUser', data.data.insertId);
+                window.location.pathname = `/profile/${data.data.insertId}`;
             })
-            .catch((err)=>{console.log(err, 'err')});
+            .catch((err)=>{
+                console.log(err, 'err')
+            });
 
         } else {
             clearTimeout(warning);

@@ -5,12 +5,22 @@ var connection;
 if (process.env.JAWSDB_URL) {
   connection = mysql.createConnection(process.env.JAWSDB_URL);
 } else {
+  /* Alex */
+  // connection = mysql.createConnection({
+  //   host: process.env.DB_HOST,
+  //   port: 3306,
+  //   user: process.env.DB_USER,
+  //   password: process.env.DB_PASS,
+  //   database: "jobAppDB"
+  // });
+
+  /* Steven */
   connection = mysql.createConnection({
-    host: process.env.DB_HOST,
+    host: "localhost",
     port: 3306,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: "jobAppDB"
+    user: "root",
+    password: "steven123",
+    database: "InFactDB"
   });
 }
 

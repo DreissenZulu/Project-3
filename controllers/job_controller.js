@@ -1,6 +1,7 @@
 const express = require("express");
 const axios = require("axios");
 const path = require("path");
+const orm = require('../config/orm');
 // Import the test module to access database functions
 // const model = require("../models/test_models.js");
 
@@ -23,6 +24,21 @@ router.get("/*", (req, res) => {
     res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
+router.get("/api/user/:id", (req, res)=>{
+	
+	let id = request.params.id;
+	
+	orm.selectData(
+		'*',
+		'user',
+		'id',
+		(result)=>{
+			console.log(result, 'RESULT 36');
+			res.send(result);
+		}
+	);
+});
+
 // router.get("/api/posts", (req, res) => {
 //     model.selectAll(result => {
 //         res.status(200).send(result);
@@ -37,11 +53,18 @@ router.get("/*", (req, res) => {
 
 router.post("/register", async(req, res)=>{
 
-	console.log(req.body, 'REQ.BODY');
+	let firstName = req.body.firstName;
+	let lastName  = req.body.lastName;
+	let email     = req.body.email;
+	let password  = req.body.password;
 
-	// let sql = ``;
-	// let args = ;
-	// let result = await db(sql, arg);
+	orm.insertData(
+		'user', 'firstName, lastName, email, password',
+		`"${firstName}","${lastName}","${email}","${password}"`,
+		(result)=>{
+			res.send(result);
+		}
+	);
 });
 
 router.get("/login", async(req, res)=>{
