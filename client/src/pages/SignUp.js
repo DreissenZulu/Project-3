@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 let warning = 0;
 
@@ -19,7 +20,23 @@ function SignUp() {
         event.preventDefault();
         let confirmInput = Object.values(formInput).filter(value => { return value !== "" })
         if (confirmInput.length === 4) {
-            console.log("All areas filled!")
+            console.log("All areas filled!");
+                        
+            let sendObj = {};
+            sendObj.email = Object.values(formInput)[0];
+            sendObj.firstName = Object.values(formInput)[1];
+            sendObj.lastName = Object.values(formInput)[2];
+            sendObj.password = Object.values(formInput)[3];
+
+            let url = '/register';
+            axios.post(url, JSON.stringify(sendObj))
+            .then((resp)=>resp.json())
+            .then((data)=>{
+
+                console.log(data, 'data');
+            })
+            .catch((err)=>{console.log(err, 'err')});
+
         } else {
             clearTimeout(warning);
             setFormState({ ...formState, formValidStyle: "block" })

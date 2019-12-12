@@ -35,4 +35,20 @@ router.get("/*", (req, res) => {
 //     })
 // });
 
+router.post("/register", async(req, res)=>{
+
+	console.log(req.body, 'REQ.BODY');
+
+	// let sql = ``;
+	// let args = ;
+	// let result = await db(sql, arg);
+});
+
+router.get("/login", async(req, res)=>{
+
+	// let sql = ``;
+	// let args = ;
+	// let result = await db(sql, args);
+});
+
 module.exports = router;
