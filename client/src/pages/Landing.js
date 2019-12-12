@@ -6,16 +6,21 @@ import axios from 'axios';
 function Landing() {
     const [search, setSearch] = useState({
         query: "",
-        location: ""
+        location: "",
+        type: "jobs"
     })
     const [results, setResults] = useState([])
 
     function handleSearch(event) {
         if (event.target.name === "search") {
-            setSearch({...search, query: event.target.value});
+            setSearch({ ...search, query: event.target.value });
         } else if (event.target.name === "location") {
-            setSearch({...search, location: event.target.value});
+            setSearch({ ...search, location: event.target.value });
         }
+    }
+
+    function handleType(event) {
+        setSearch({ ...search, type: event.target.value });
     }
 
     async function submitSearch(event) {
@@ -36,7 +41,20 @@ function Landing() {
                     <p className="lead">The job board for connecting Freelancers</p>
                 </div>
             </div>
-            <SearchBar handleSearch={handleSearch} submitSearch={submitSearch} />
+
+            <div className="container">
+                <h2>I'm looking for...</h2>
+                <div className="row">
+                    <div className="col-6">
+                        <button className={search.type === "jobs" ? "btn search-type-btn text-light job-btn-select" : "btn search-type-btn text-light job-btn-deselect"} onClick={handleType} value="jobs">Jobs</button>
+                    </div>
+                    <div className="col-6">
+                        <button className={search.type === "people" ? "btn search-type-btn text-light people-btn-select" : "btn search-type-btn text-light people-btn-deselect"} onClick={handleType} value="people">People</button>
+                    </div>
+                </div>
+            </div>
+
+            <SearchBar searchType={search.type} handleSearch={handleSearch} submitSearch={submitSearch} />
             <div className="container">
                 <SearchResults results={results} />
             </div>
