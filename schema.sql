@@ -21,23 +21,26 @@ CREATE TABLE savedjobs(
 
 CREATE TABLE links(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	userid VARCHAR (100),
-    website VARCHAR (100)
+	userid INT,
+    link1 VARCHAR (100),
+    link2 VARCHAR (100),
+    link3 VARCHAR (100)
 );
 
 CREATE TABLE comments(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	comment_text VARCHAR (100),
-    poster_id VARCHAR (100),
-    commenton_id VARCHAR (100)
+    poster_id INT,
+    commenton_id INT
 );
 
 CREATE TABLE replies(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	reply_text VARCHAR (100),
-    comment_id VARCHAR (100),
-    reply_poster_id VARCHAR (100)
+    comment_id INT,
+    reply_poster_id INT
 );
+
 
 
 
