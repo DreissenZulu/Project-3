@@ -21,6 +21,7 @@ router.get("/api/post/:id", async (req, res) => {
     res.send(results.data);
 })
 
+
 router.get("/api/user/:id", async (req, res)=>{
 	
 	let id = req.params.id;
