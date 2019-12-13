@@ -4,8 +4,13 @@ import ProfilePage from '../components/ProfilePage';
 // import InitializeUser from 'InitializeUser';
 
 function Profile() {
-    const [profileInfo, setProfileInfo] = useState("")
     let profileID = window.location.pathname.split("/")[2]
+
+    // Redirects the user to set up their profile if they have no assigned role yet
+    if ((profileID == JSON.parse(localStorage.getItem('currUser')).id) && (JSON.parse(localStorage.getItem('currUser')).role === null)) {
+        window.location.pathname = "/setup";
+    }
+    const [profileInfo, setProfileInfo] = useState("")
     // let profileID = window.localStorage.getItem('currUser');
 
     useEffect(() => {
