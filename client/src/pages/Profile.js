@@ -8,8 +8,6 @@ function Profile() {
     let profileID = window.location.pathname.split("/")[2]
     // let profileID = window.localStorage.getItem('currUser');
 
-
-
     useEffect(() => {
         if (profileID !== undefined) {
             fetchUser()

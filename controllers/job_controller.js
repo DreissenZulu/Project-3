@@ -20,21 +20,35 @@ router.get("/api/post/:id", async (req, res) => {
     res.send(results.data);
 })
 
-router.get("/api/user/:id", (req, res)=>{
-	let id = req.params.id;
-	
-	orm.selectData('user', '*', `WHERE id = ${id}`,
-		(result)=>{
-			res.send(result);
-		}
-	);
+router.get("/api/user/:id", (req, res) => {
+    let id = req.params.id;
+
+    orm.selectData('user', '*', `WHERE id = ${id}`,
+        (result) => {
+            res.send(result);
+        }
+    );
 });
 
-router.get("/api/users/:query", (req, res) => {
+router.get("/api/users/:query/:location?", (req, res) => {
     let query = req.params.query;
+    let location = req.params.location;
 
-    orm.selectData('user', 'id, firstName, lastName, city, country', 'WHERE ')
+    orm.selectData('user', 'id, firstName, lastName, city, country', `WHERE CONCAT(firstName, " ", lastName) LIKE "%${query}%" OR CONCAT(city, " ", country) LIKE "%${location}%"`, (result) => {
+        console.log(result)
+        res.send(result);
+    })
 })
+
+router.get("/api/login", async (req, res) => {
+    await orm.selectData('user', 'id', `WHERE email = '${req.query.email}' AND password = '${req.query.password}'`, result => {
+        if (result.length != 0) {
+            res.send(result);
+        } else {
+            res.send("failed");
+        }
+    });
+});
 
 router.get("/*", (req, res) => {
     res.sendFile(path.join(__dirname, "../client/build/index.html"));
@@ -52,27 +66,25 @@ router.get("/*", (req, res) => {
 //     })
 // });
 
-router.post("/register", async(req, res)=>{
+router.post("/register", async (req, res) => {
+    await orm.selectData('user', '*', `WHERE email = '${req.body.email}'`, result => {
+        if (result.length > 0) {
+            res.send("exists");
+        } else {
+            let firstName = req.body.firstName;
+            let lastName = req.body.lastName;
+            let email = req.body.email;
+            let password = req.body.password;
 
-	let firstName = req.body.firstName;
-	let lastName  = req.body.lastName;
-	let email     = req.body.email;
-	let password  = req.body.password;
-
-	orm.insertData(
-		'user', 'firstName, lastName, email, password',
-		`"${firstName}","${lastName}","${email}","${password}"`,
-		(result)=>{
-			res.send(result);
-		}
-	);
-});
-
-router.get("/login", async(req, res)=>{
-
-	// let sql = ``;
-	// let args = ;
-	// let result = await db(sql, args);
+            orm.insertData(
+                'user', 'firstName, lastName, email, password',
+                `"${firstName}","${lastName}","${email}","${password}"`,
+                (result) => {
+                    res.send(result);
+                }
+            );
+        }
+    });
 });
 
 module.exports = router;
