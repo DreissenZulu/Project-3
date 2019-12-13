@@ -6,7 +6,8 @@ import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
 import JobDetails from './pages/JobDetails';
 import Hero from './pages/Hero';
-import Layout from './components/Layout'
+import SetUp from './pages/SetUp';
+import Layout from './components/Layout';
 import "./App.css";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             <Route path="/profile/:id" component={Profile} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/login" component={LogIn} />
+            <Route exact path="/setup" component={SetUp} />
             <Route path="/post/:id" component={JobDetails} />
           </Switch>
         </Layout>
