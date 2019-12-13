@@ -10,7 +10,9 @@ CREATE TABLE user(
     password VARCHAR(100) NOT NULL,
     bio VARCHAR(1000),
     city VARCHAR(100),
-    country VARCHAR(100)
+    country VARCHAR(100),
+    role VARCHAR (100),
+    image_url VARCHAR (100)
 );
 
 CREATE TABLE savedjobs(
@@ -39,6 +41,13 @@ CREATE TABLE replies(
 	reply_text VARCHAR (100),
     comment_id INT,
     reply_poster_id INT
+);
+
+CREATE TABLE rating(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	rating_value INT,
+    rater_id INT,
+    rated_id INT
 );
 
 

@@ -116,6 +116,7 @@ const db = new Database({
                             let useridObj = await db.query(`SELECT id FROM user WHERE email = '${response.email}'`);
                             userid = useridObj[0].id;
                             console.log("Congrats user created,Happy job hunting");
+                            await mainUser();
                     }
                 }
                 )
@@ -145,11 +146,12 @@ const db = new Database({
                                 //companyid = companyidObj[0].companyId;
                                 if (jobObj[0] == undefined){
                                     console.log("You have not saved any jobs yet")
-                                    await main();
+                                    await mainUser();
                                 }
                                 else{
+                                    console.log("Your saved jobs")
                                     console.table(jobObj);
-                                    await main();
+                                    await mainUser();
                                 }
             
                                 
@@ -163,3 +165,37 @@ const db = new Database({
             }
   
   main();
+
+  async function mainUser(){
+    let task = await inquirer
+            .prompt([
+                {
+                    type: "list",
+                    message: "What would you like to do",
+                    name: "job",
+                    choices: [
+                        "Search Users",
+                        "See your saved jobs ",
+                        "Edit profile",
+                        "Add comment on user profile"
+                    ]
+                },
+            ])
+            if (task.job == "Search Users"){
+                await inquirer
+                .prompt([
+                    {
+                        type: "input",
+                        message: "Please enter search",
+                        name: "search",
+                    }
+
+                ]).then(
+                    async (response)=>{
+                        let usersearch = await db.query(`SELECT * FROM user WHERE firstName LIKE '%${response.search}%' OR lastName LIKE '%${response.search}%'`);
+                        console.table(usersearch);
+                                //userid = useridObj[0].id;
+                    }
+                )
+            }
+  }
