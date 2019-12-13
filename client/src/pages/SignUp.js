@@ -20,7 +20,6 @@ function SignUp() {
         event.preventDefault();
         let confirmInput = Object.values(formInput).filter(value => { return value !== "" })
         if (confirmInput.length === 4) {
-            console.log("All areas filled!");
                         
             let sendObj = {};
             sendObj.email = Object.values(formInput)[0];
@@ -33,8 +32,16 @@ function SignUp() {
 
             .then((data)=>{
                 /* Set insertId into localStrorage, redirect to profile page */
-                window.localStorage.setItem('currUser', data.data.insertId);
-                window.location.pathname = `/profile/${data.data.insertId}`;
+                if (data.data === "exists") {
+                    clearTimeout(warning);
+                    setFormState({ ...formState, userValidStyle: "block" })
+                    warning = setTimeout(() => {
+                        setFormState({ ...formState, userValidStyle: "none" })
+                    }, 5000)
+                } else {
+                    window.localStorage.setItem('currUser', data.data.insertId);
+                    window.location.pathname = `/profile/${data.data.insertId}`;
+                }
             })
             .catch((err)=>{
                 console.log(err, 'err')
@@ -90,7 +97,7 @@ function SignUp() {
                     </div>
                     <div className="form-group">
                         <label htmlFor="exampleInputPassword1"><i><strong> Password</strong></i></label>
-                        <input type="password" className="form-control form-control-lg" id="password" onChange={handleInputChange} />
+                        <input type="password" className="form-control form-control-lg" id="password" autoComplete="off" onChange={handleInputChange} />
                     </div>
                     <div className="button">
                         <button className="btn btn-primary" style={{ marginBottom: "10px" }} id="createNewAccount">Submit</button>
