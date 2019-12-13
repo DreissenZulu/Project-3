@@ -8,7 +8,7 @@ function SearchResults(props) {
         <h1><i class="fas fa-unlink"></i> Uh oh, we couldn't find anything for {(props.search.query === "" || props.search.location === "") ? `${props.search.query}${props.search.location}` : `${props.search.query} in ${props.search.location}` }</h1>
       </div>
     )
-  }
+  }  
 
   return (
     <div className="row">

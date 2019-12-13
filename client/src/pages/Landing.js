@@ -40,7 +40,16 @@ function Landing() {
                 console.log(err)
             }
         } else if (search.type === "people") {
-            console.log("Here's where you call the database")
+            try {
+                let searchResults = await axios.get(`/api/users/${search.query}/${search.location}`)
+                if (searchResults.data.length === 0) {
+                    setResults("none");
+                } else {
+                    setResults(searchResults.data);
+                }
+            } catch (err) {
+                console.log(err)
+            }
         }
     }
 
