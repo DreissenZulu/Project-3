@@ -30,10 +30,14 @@ router.get("/api/user/:id", (req, res)=>{
 	);
 });
 
-router.get("/api/users/:query", (req, res) => {
+router.get("/api/users/:query/:location?", (req, res) => {
     let query = req.params.query;
+    let location = req.params.location;
 
-    orm.selectData('user', 'id, firstName, lastName, city, country', 'WHERE ')
+    orm.selectData('user', 'id, firstName, lastName, city, country', `WHERE CONCAT(firstName, " ", lastName) LIKE "%${query}%" OR CONCAT(city, " ", country) LIKE "%${location}%"`, (result) => {
+        console.log(result)
+        res.send(result);
+    })
 })
 
 router.get("/*", (req, res) => {
