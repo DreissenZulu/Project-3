@@ -41,7 +41,7 @@ router.get("/api/users/:query/:location?", (req, res) => {
 })
 
 router.get("/api/login", async (req, res) => {
-    await orm.selectData('user', 'id', `WHERE email = '${req.query.email}' AND password = '${req.query.password}'`, result => {
+    await orm.selectData('user', 'id, role', `WHERE email = '${req.query.email}' AND password = '${req.query.password}'`, result => {
         if (result.length != 0) {
             res.send(result);
         } else {
