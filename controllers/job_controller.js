@@ -30,6 +30,12 @@ router.get("/api/user/:id", (req, res)=>{
 	);
 });
 
+router.get("/api/users/:query", (req, res) => {
+    let query = req.params.query;
+
+    orm.selectData('user', 'id, firstName, lastName, city, country', 'WHERE ')
+})
+
 router.get("/*", (req, res) => {
     res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
