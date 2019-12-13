@@ -20,23 +20,18 @@ router.get("/api/post/:id", async (req, res) => {
     res.send(results.data);
 })
 
-router.get("/*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/build/index.html"));
-});
-
 router.get("/api/user/:id", (req, res)=>{
+	let id = req.params.id;
 	
-	let id = request.params.id;
-	
-	orm.selectData(
-		'*',
-		'user',
-		'id',
+	orm.selectData('user', '*', `WHERE id = ${id}`,
 		(result)=>{
-			console.log(result, 'RESULT 36');
 			res.send(result);
 		}
 	);
+});
+
+router.get("/*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
 // router.get("/api/posts", (req, res) => {
