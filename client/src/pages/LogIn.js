@@ -32,8 +32,12 @@ function LogIn() {
                         setFormState({ ...formState, formFailedStyle: "none" })
                     }, 3000)
                 } else {
-                    window.localStorage.setItem('currUser', result.data[0].id);
-                    window.location.pathname = `/profile/${result.data[0].id}`;
+                    window.localStorage.setItem('currUser', JSON.stringify({ id: result.data[0].id, role: result.data[0].role }));
+                    if (result.data[0].role !== null) {
+                        window.location.pathname = `/profile/${result.data[0].id}`;
+                    } else {
+                        window.location.pathname = "/setup";
+                    }
                 }
             })
         } else {
