@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+// import '../../public/css/profile.css';
 
 function Profile() {
     const [profileInfo, setProfileInfo] = useState("")
 
+    let profileID = window.localStorage.getItem('currUser');
+
     useEffect(() => {
-        let profileID = window.location.pathname.split("/")[1]
         if (profileID !== undefined) {
-            fetchUser()
+            fetchUser(profileID)
         }
     }, [])
 
@@ -15,14 +17,12 @@ function Profile() {
         fetchUser()
     }, [profileInfo])
 
-    async function fetchUser() {
-        if (jobInfo === "") {
-            try {
-                let profileData = await axios.get(`/api/user/${profileID}`)
-                setProfileInfo(profileData.data);
-            } catch (err) {
-                console.log(err)
-            }
+    async function fetchUser(profileID) {
+        try {
+            let profileData = await axios.get(`/api/user/${profileID}`)
+            setProfileInfo(profileData.data[0]);
+        } catch (err) {
+            console.log(err)
         }
     }
 
@@ -42,7 +42,7 @@ function Profile() {
                             </h3>
                         </div>
                         <div>
-                            <h1>Phillip Lynch</h1>
+                            <h1 class="test">{`${profileInfo.firstName} ${profileInfo.lastName}`}</h1>
                             <p><i>Freelance Web Developer</i></p>
                             <p className="profile-bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat consectetur dolor. Suspendisse imperdiet tellus non ligula pharetra condimentum. Curabitur quis lacinia justo, a malesuada mauris. Proin ut mauris turpis. Morbi vulputate sapien lectus, suscipit finibus ex vehicula eget. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum in semper tellus. Aliquam pellentesque eleifend nibh, at gravida velit pulvinar eget. Maecenas maximus vulputate eros, viverra sollicitudin est blandit sed. Nam vel magna tortor. Cras dictum ante nec ornare interdum. Maecenas at euismod est, a convallis sapien. </p>
                         </div>
@@ -50,7 +50,7 @@ function Profile() {
                     <div className="col-md-8">
                         <div className="row d-flex justify-content-center text-center">
                             <div className="col-md-4">
-                                phillip.lynch@example.com
+                                {`${profileInfo.email}`}
                             </div>
                             <div className="col-md-4">
                                 Ontario, Canada

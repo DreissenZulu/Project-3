@@ -2,6 +2,7 @@ const express = require("express");
 const axios = require("axios");
 const path = require("path");
 const orm = require('../config/orm');
+const connection = require("../config/connection.js");
 // Import the test module to access database functions
 // const model = require("../models/test_models.js");
 
@@ -20,23 +21,22 @@ router.get("/api/post/:id", async (req, res) => {
     res.send(results.data);
 })
 
-router.get("/*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/build/index.html"));
-});
-
-router.get("/api/user/:id", (req, res)=>{
+router.get("/api/user/:id", async (req, res)=>{
 	
-	let id = request.params.id;
+	let id = req.params.id;
 	
 	orm.selectData(
-		'*',
 		'user',
-		'id',
+		'*',
+		`WHERE id = ${id}`,
 		(result)=>{
-			console.log(result, 'RESULT 36');
 			res.send(result);
 		}
 	);
+});
+
+router.get("/*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
 // router.get("/api/posts", (req, res) => {
