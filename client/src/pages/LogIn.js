@@ -1,22 +1,41 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 let warning = 0;
 
 function LogIn() {
     const [formInput, setFormInput] = useState({
-        username: "",
+        email: "",
         password: ""
     })
 
     const [formState, setFormState] = useState({
-        formValidStyle: "none"
+        formValidStyle: "none",
+        formFailedStyle: "none"
     })
 
     function handleFormSubmit(event) {
         event.preventDefault();
-        let confirmInput = Object.values(formInput).filter(value => { return value !== "" })
+        let confirmInput = Object.values(formInput).filter(value => { return value.trim() !== "" })
         if (confirmInput.length === 2) {
             console.log("All areas filled!")
+            axios.get("/api/login", {
+                params: {
+                    email: formInput.email,
+                    password: formInput.password
+                }
+            }).then(result => {
+                if (result.data === "failed") {
+                    clearTimeout(warning);
+                    setFormState({ ...formState, formFailedStyle: "block" })
+                    warning = setTimeout(() => {
+                        setFormState({ ...formState, formFailedStyle: "none" })
+                    }, 3000)
+                } else {
+                    window.localStorage.setItem('currUser', result.data[0].id);
+                    window.location.pathname = `/profile/${result.data[0].id}`;
+                }
+            })
         } else {
             clearTimeout(warning);
             setFormState({ ...formState, formValidStyle: "block" })
@@ -29,7 +48,7 @@ function LogIn() {
     function handleInputChange(event) {
         switch (event.target.id) {
             case ("user"):
-                setFormInput({ ...formInput, username: event.target.value })
+                setFormInput({ ...formInput, email: event.target.value })
                 break;
             case ("password"):
                 setFormInput({ ...formInput, password: event.target.value })
@@ -56,8 +75,11 @@ function LogIn() {
                         <button className="btn btn-primary" style={{ marginBottom: "10px" }} id="logIntoAccount">Submit</button>
                     </div>
                 </form>
-                <div className="alert alert-danger" id="alertFailed" style={{ display: formState.formValidStyle }}>
+                <div className="alert alert-danger" id="alertEmpty" style={{ display: formState.formValidStyle }}>
                     Please fill in missing information!
+                </div>
+                <div className="alert alert-danger" id="alertFailed" style={{ display: formState.formFailedStyle }}>
+                    Email or password is invalid!
                 </div>
             </div>
         </div>
