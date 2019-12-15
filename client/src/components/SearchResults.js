@@ -44,12 +44,12 @@ function SearchResults(props) {
       <div className="row">
         {props.results.map(user => {
           return (
-            <div className="col-md-6 card">
+            <div className="col-lg-6 card">
               <div className="row no-gutters">
                 <div className="col-xs-2">
                   <img style={{maxHeight: "128px"}} src={user.image_url ? user.image_url : userPlaceholder} className="card-img" alt="User image" />
                 </div>
-                <div className="col-xs-9">
+                <div className="col-xs-9" style={{marginRight: "auto"}}>
                   <div className="card-body">
                     <Link className="card-title" to={"/profile/" + user.id}>
                       <h5>{`${user.firstName} ${user.lastName}`}</h5>
