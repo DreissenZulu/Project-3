@@ -77,11 +77,11 @@ function SetUp() {
                 </div>
                 <form onSubmit={finishSetUp} className={formData.role === "" ? "d-none" : "fadeIn text-left"}>
                     <div className="form-group">
-                        <label htmlFor="cityInput">City</label>
+                        <label htmlFor="cityInput">Required: City</label>
                         <input className="form-control" onChange={handleInput} name="city" id="cityInput" />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="countryInput">Country</label>
+                        <label htmlFor="countryInput">Required: Country</label>
                         <input className="form-control" onChange={handleInput} name="country" id="countryInput" />
                     </div>
                     <button type="submit" className={(formData.city.trim() === "" || formData.country.trim() === "") ? "btn btn-primary disabled" : "btn btn-primary"} disabled={formData.city.trim() === "" || formData.country.trim() === ""} >Finish</button>
