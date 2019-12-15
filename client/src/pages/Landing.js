@@ -24,6 +24,7 @@ function Landing() {
 
     function handleType(event) {
         setSearch({ ...search, type: event.target.value });
+        setResults([]);
     }
 
     async function submitSearch(event) {
