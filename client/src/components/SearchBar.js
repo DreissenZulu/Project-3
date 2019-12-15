@@ -19,7 +19,7 @@ function SearchBar(props) {
       )
     } else {
       return (
-        <form className="container" onSubmit={props.submitSearch}>
+        <form className="container" style={{marginBottom: "10px"}} onSubmit={props.submitSearch}>
           <div className="row">
             <div className="form-group col-md-6">
               <input className="form-control" name="search" onChange={props.handleSearch} type="search" placeholder="Search for a user or a role" autoComplete="off" aria-label="Search" />
