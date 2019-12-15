@@ -2,6 +2,7 @@ const express = require("express");
 const axios = require("axios");
 const path = require("path");
 const orm = require('../config/orm');
+const connection = require("../config/connection.js");
 // Import the test module to access database functions
 // const model = require("../models/test_models.js");
 
@@ -31,18 +32,19 @@ router.get("/api/user/:id", (req, res) => {
     );
 });
 
-router.get("/api/users/:query/:location?", (req, res) => {
-    let query = req.params.query;
-    let location = req.params.location;
+router.get("/api/users/", (req, res) => {
+    console.log(req.query)
+    let query = req.query.query;
+    let location = req.query.location;
 
-    orm.selectData('user', 'id, firstName, lastName, city, country', `WHERE CONCAT(firstName, " ", lastName) LIKE "%${query}%" OR CONCAT(city, " ", country) LIKE "%${location}%"`, (result) => {
+    orm.selectData('user', 'id, firstName, lastName, city, country, image_url', `WHERE CONCAT(firstName, " ", lastName) LIKE "%${query}%" AND CONCAT(city, " ", country) LIKE "%${location}%"`, (result) => {
         console.log(result)
         res.send(result);
     })
 })
 
 router.get("/api/login", async (req, res) => {
-    await orm.selectData('user', 'id', `WHERE email = '${req.query.email}' AND password = '${req.query.password}'`, result => {
+    await orm.selectData('user', 'id, role', `WHERE email = '${req.query.email}' AND password = '${req.query.password}'`, result => {
         if (result.length != 0) {
             res.send(result);
         } else {

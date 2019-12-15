@@ -28,8 +28,8 @@ function SignUp() {
             sendObj.password = Object.values(formInput)[3];
 
             let url = '/register';
+            
             axios.post(url, sendObj)
-
             .then((data)=>{
                 /* Set insertId into localStrorage, redirect to profile page */
                 if (data.data === "exists") {
@@ -39,8 +39,8 @@ function SignUp() {
                         setFormState({ ...formState, userValidStyle: "none" })
                     }, 5000)
                 } else {
-                    window.localStorage.setItem('currUser', data.data.insertId);
-                    window.location.pathname = `/profile/${data.data.insertId}`;
+                    window.localStorage.setItem('currUser', JSON.stringify({id: data.data.insertId, role: null}));
+                    window.location.pathname = '/setup';
                 }
             })
             .catch((err)=>{
