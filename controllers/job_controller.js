@@ -32,12 +32,10 @@ router.get("/api/user/:id", (req, res) => {
 });
 
 router.get("/api/users/", (req, res) => {
-    console.log(req.query)
     let query = req.query.query;
     let location = req.query.location;
 
     orm.selectData('user', 'id, firstName, lastName, city, country, image_url', `WHERE CONCAT(firstName, " ", lastName) LIKE "%${query}%" AND CONCAT(city, " ", country) LIKE "%${location}%"`, (result) => {
-        console.log(result)
         res.send(result);
     })
 })
@@ -88,5 +86,11 @@ router.post("/register", async (req, res) => {
         }
     });
 });
+
+router.put("/setup", async (req, res) => {
+    await orm.updateData('user', `role="${req.body.role}", city="${req.body.city}", country="${req.body.country}", image_url="${req.body.imageURL}", bio="${req.body.bio}"`, `id=${req.body.id}`, result => {
+        res.send(result);
+    })
+})
 
 module.exports = router;
