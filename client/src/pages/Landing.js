@@ -41,7 +41,7 @@ function Landing() {
             }
         } else if (search.type === "people") {
             try {
-                let searchResults = await axios.get(`/api/users/${search.query}/${search.location}`)
+                let searchResults = await axios.get(`/api/users/`, {params: {query: search.query, location: search.location}})
                 if (searchResults.data.length === 0) {
                     setResults("none");
                 } else {
