@@ -32,6 +32,19 @@ router.get("/api/user/:id", (req, res) => {
     );
 });
 
+router.get("/api/jobs/:id/:jobid", (req, res) => {
+    let id = Number(req.params.id);
+    let jobID = Number(req.params.jobid);
+
+    orm.selectData("savedjobs", "*", `WHERE userid=${id} AND jobid=${jobID}`, result => {
+        if (result.length > 0) {
+            res.send("saved")
+        } else {
+            res.send("none")
+        }
+    })
+})
+
 router.get("/api/users/", (req, res) => {
     let query = req.query.query;
     let location = req.query.location;
@@ -92,14 +105,12 @@ router.post("/savejob", async (req, res) => {
 
     let jobtitle = req.body.jobtitle;
     let jobid = req.body.jobid;
-    //let userid = req.body.userId;
-    let userid = 1;
+    let userid = req.body.userId;
 
     orm.insertData(
         'savedjobs', 'jobtitle, jobid, userid',
         `"${jobtitle}","${jobid}","${userid}"`,
         (result) => {
-            console.log(result)
             res.send(result);
         }
     );
