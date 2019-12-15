@@ -35,7 +35,7 @@ router.get("/api/users/", (req, res) => {
     let query = req.query.query;
     let location = req.query.location;
 
-    orm.selectData('user', 'id, firstName, lastName, city, country', `WHERE CONCAT(firstName, " ", lastName) LIKE "%${query}%" AND CONCAT(city, " ", country) LIKE "%${location}%"`, (result) => {
+    orm.selectData('user', 'id, firstName, lastName, city, country, image_url', `WHERE CONCAT(firstName, " ", lastName) LIKE "%${query}%" AND CONCAT(city, " ", country) LIKE "%${location}%"`, (result) => {
         console.log(result)
         res.send(result);
     })
