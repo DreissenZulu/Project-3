@@ -6,6 +6,7 @@ CREATE TABLE user(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     firstName VARCHAR(100),
     lastName VARCHAR(100),
+    title VARCHAR(100),
     email VARCHAR(100),
     phoneNumber VARCHAR(100),
     password VARCHAR(100) NOT NULL,
@@ -46,9 +47,3 @@ CREATE TABLE rating(
     rater_id INT,
     rated_id INT
 );
-
-
-
-
-
-

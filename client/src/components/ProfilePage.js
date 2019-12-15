@@ -44,11 +44,11 @@ function ProfilePage(props) {
     let create_updateObj = ()=>{
         let updateObj = {};
             updateObj.name     = document.querySelector('.profileName').innerHTML;
-            updateObj.role     = document.querySelector('.profileRole').innerHTML;
+            updateObj.title     = document.querySelector('.profileTitle').innerHTML;
             updateObj.location = document.querySelector('.profileLocation').innerHTML;
             updateObj.number   = document.querySelector('.profileNumber').innerHTML;
             updateObj.bio      = document.querySelector('.bio_plate').innerHTML;
-            updateObj.id       = window.localStorage.getItem('currUser');
+            updateObj.id       = JSON.parse(window.localStorage.getItem('currUser')).id;
 
         return updateObj;
     };
@@ -72,8 +72,8 @@ function ProfilePage(props) {
             if(thisField.classList.contains('profileName')){
                 unique = 'name';
             }
-            else if(thisField.classList.contains('profileRole')){
-                unique = 'role';
+            else if(thisField.classList.contains('profileTitle')){
+                unique = 'title';
             }
             else if(thisField.classList.contains('profileLocation')){
                 unique = 'location';
@@ -88,33 +88,31 @@ function ProfilePage(props) {
         };
     };
 
-    /* Hitting "Enter" in editable field
-    - removes contenteditable
+    /* Updating a field involves:
+    - remove contenteditable
     - if empty, add placeholder text back
-    - sends updateObj to DB
-    - sets activeField to null */
-    let updateField = async(e)=>{
-        if(e.key == "Enter"){
-            let thisField = e.target;
+    - create and send updateObj to DB
+    - set activeField to null */
+    let updateField = async(thisField)=>{
             thisField.removeAttribute('contenteditable');
             fieldEmpty_getPlaceholder(thisField);
             let updateObj = create_updateObj();
             await axios.put(`/user`, updateObj);
             activeField = null;
-        };
     };
 
     let updateBy_clickOut = async(e)=>{
         let coords = [e.x, e.y];
         if(activeField != null
         && isWithin(coords, activeField) == false){
-            updateField(e);
+            updateField(activeField);
         };
     };
 
     let updateBy_enter = async(e)=>{
         if(e.key == "Enter"){
-            updateField(e);
+            let thisField = e.target;
+            updateField(thisField);
         };
     };
 
@@ -131,20 +129,20 @@ function ProfilePage(props) {
                             <i className="fas fa-star"></i>
                             <i className="far fa-star"></i>
                         </h3>
-                        <h1 className="profileName" onDoubleClick={editFieldInit} onKeyDown={updateField}>
+                        <h1 className="profileName" onDoubleClick={editFieldInit} onKeyDown={updateBy_enter}>
                             {`${profileInfo.firstName} ${profileInfo.lastName}`}
                         </h1>
-                        <p className="profileRole" onDoubleClick={editFieldInit} onKeyDown={updateField}>
-                            {props.profileRole ? props.profileRole : "+ add a role"}
+                        <p className="profileTitle" onDoubleClick={editFieldInit} onKeyDown={updateBy_enter}>
+                            {profileInfo.title ? profileInfo.title : "+ add a title"}
                         </p>
                         <div className="profileEmail">
                             {profileInfo.email}
                         </div>
-                        <div className="profileLocation" onDoubleClick={editFieldInit} onKeyDown={updateField}>
-                            {props.profileLocation ? props.profileLocation : "+ add a location"}
+                        <div className="profileLocation" onDoubleClick={editFieldInit} onKeyDown={updateBy_enter}>
+                            {`${profileInfo.city} ${profileInfo.country}`}
                         </div>
-                        <div className="profileNumber" onDoubleClick={editFieldInit} onKeyDown={updateField}>
-                            {props.profileNumber ? props.profileNumber : "+ add a number"}
+                        <div className="profileNumber" onDoubleClick={editFieldInit} onKeyDown={updateBy_enter}>
+                            {profileInfo.phoneNumber ? profileInfo.phoneNumber : "+ add a number"}
                         </div>
                         <div className="links_wrap">
 
@@ -153,8 +151,8 @@ function ProfilePage(props) {
                 </div> {/* END info_wrap */}
                 <div className="bioAndComments_wrap">
                     <div className="bio_wrap">
-                        <div className="bio_plate" onDoubleClick={editFieldInit} onKeyDown={updateField}>
-                            {props.bio ? props.bio : "+ add a bio"}
+                        <div className="bio_plate" onDoubleClick={editFieldInit} onKeyDown={updateBy_enter}>
+                            {profileInfo.bio ? profileInfo.bio : "+ add a bio"}
                         </div>
                     </div>
                     <div className="addCommentButton" onClick={addComment}>+</div>

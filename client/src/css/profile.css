@@ -41,7 +41,7 @@
 
 .stars_wrap,
 .profileName,
-.profileRole,
+.profileTitle,
 .profileEmail,
 .profileLocation,
 .profileNumber {
@@ -54,7 +54,11 @@
 	font-size: 32px;
 }
 
-.profileRole,
+.profileTitle {
+	font-size: 20px;
+}
+
+.profileTitle,
 .profileEmail,
 .profileLocation,
 .profileNumber {
