@@ -10,13 +10,14 @@ const connection = require("../config/connection.js");
 let router = express.Router();
 
 router.get("/search/:search", async (req, res) => {
-    let queryURL = `https://authenticjobs.com/api/?format=json&api_key=${process.env.AJ_API}&method=aj.jobs.search&keywords=${req.params.search}&perpage=10`
+    let queryURL = `https://authenticjobs.com/api/?format=json&api_key=cb2d8eec4216145cb45cf496d7b00323&method=aj.jobs.search&keywords=${req.params.search}&perpage=10`
     let results = await axios.get(queryURL)
+    console.log(results)
     res.send(results.data.listings.listing);
 })
 
 router.get("/api/post/:id", async (req, res) => {
-    let queryURL = `https://authenticjobs.com/api/?format=json&api_key=${process.env.AJ_API}&method=aj.jobs.get&id=${req.params.id}`
+    let queryURL = `https://authenticjobs.com/api/?format=json&api_key=cb2d8eec4216145cb45cf496d7b00323&method=aj.jobs.get&id=${req.params.id}`
     let results = await axios.get(queryURL)
     res.send(results.data);
 })
@@ -31,13 +32,24 @@ router.get("/api/user/:id", (req, res) => {
     );
 });
 
+router.get("/api/jobs/:id/:jobid", (req, res) => {
+    let id = Number(req.params.id);
+    let jobID = Number(req.params.jobid);
+
+    orm.selectData("savedjobs", "*", `WHERE userid=${id} AND jobid=${jobID}`, result => {
+        if (result.length > 0) {
+            res.send("saved")
+        } else {
+            res.send("none")
+        }
+    })
+})
+
 router.get("/api/users/", (req, res) => {
-    console.log(req.query)
     let query = req.query.query;
     let location = req.query.location;
 
     orm.selectData('user', 'id, firstName, lastName, city, country, image_url', `WHERE CONCAT(firstName, " ", lastName) LIKE "%${query}%" AND CONCAT(city, " ", country) LIKE "%${location}%"`, (result) => {
-        console.log(result)
         res.send(result);
     })
 })
@@ -114,5 +126,27 @@ router.put("/user", async(req, res)=>{
         res.send(false);
     };
 });
+
+router.post("/savejob", async (req, res) => {
+
+    let jobtitle = req.body.jobtitle;
+    let jobid = req.body.jobid;
+    let userid = req.body.userId;
+
+    orm.insertData(
+        'savedjobs', 'jobtitle, jobid, userid',
+        `"${jobtitle}","${jobid}","${userid}"`,
+        (result) => {
+            res.send(result);
+        }
+    );
+})
+
+router.put("/setup", async (req, res) => {
+    await orm.updateData('user', `role="${req.body.role}", city="${req.body.city}", country="${req.body.country}", image_url="${req.body.imageURL}", bio="${req.body.bio}"`, `id=${req.body.id}`, result => {
+        res.send(result);
+    })
+})
+
 
 module.exports = router;

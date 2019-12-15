@@ -82,7 +82,7 @@ function SignUp() {
                 <form onSubmit={handleFormSubmit}>
                     <div className="form-group">
                         <label><i><strong> Email</strong></i></label>
-                        <input className="form-control form-control-lg" id="email" autoComplete="off" onChange={handleInputChange} />
+                        <input type="email" className="form-control form-control-lg" id="email" autoComplete="off" onChange={handleInputChange} />
                         <small id="alertTaken" className="form-text text-danger" style={{ display: formState.userValidStyle }}>
                             This email is already in use!
                         </small>

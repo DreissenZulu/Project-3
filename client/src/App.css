@@ -133,7 +133,7 @@ html, body {
 }
 
 .footer {
-  position: fixed;
+  position: relative;
   bottom: 0;
   width: 100%;
   background-color: white;
@@ -149,5 +149,60 @@ html, body {
   }
   .hero-inner {
     text-align: left;
+  }
+}
+
+/* Animations */
+.fadeIn {
+  animation-name: fade-in;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+  animation-duration: 0.30s;
+}
+
+.fadeOut {
+  animation-name: fade-out;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+  animation-duration: 0.30s;
+}
+
+.slideDown {
+  animation-name: slide-down;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  animation-duration: 0.70s;
+}
+
+@keyframes fade-in {
+  0% {
+      left: 200px;
+      opacity: 0;
+  }
+  100% {
+      left: 0;
+      opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+      right: 0;
+      opacity: 1;
+  }
+  100% {
+      right: 200px;
+      opacity: 0;
+  }
+}
+
+@keyframes slide-down {
+  0% {
+      bottom: 100px;
+      opacity: 0;
+  }
+  100% {
+      bottom: 0;
+      opacity: 1;
   }
 }

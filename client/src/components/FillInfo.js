@@ -1,7 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function FillInfo(props) {
+    let userID = JSON.parse(localStorage.getItem("currUser")).id;
     let jobInfo = props.jobInfo.listing;
+    const [saved, setSaved] = useState( false )
+
+    useEffect(() => {
+        checkSaved();
+    })
+
+    async function checkSaved() {
+        let result = await axios.get(`/api/jobs/${userID}/${Number(jobInfo.id)}`)
+        if (result.data === "saved") {
+            setSaved(true);
+        }
+    }
+
+    function savejob(){
+        let sendObj = {}
+        sendObj.userId = userID;
+        sendObj.jobtitle = jobInfo.title;
+        sendObj.jobid = jobInfo.id;
+        let url = '/savejob';
+        axios.post(url, sendObj);
+    
+        setSaved({ ...saved, saved: true});
+        
+    }
+
 
     if (jobInfo) {
         return (
@@ -11,6 +38,7 @@ function FillInfo(props) {
                     <h1>{jobInfo.title}</h1>
                     <h3>{jobInfo.category.name} at <a href={jobInfo.company.url} target="_blank" rel="noopener noreferrer" >{jobInfo.company.name}</a></h3>
                     <a className="btn btn-primary" href={props.jobInfo.apply_url}>Apply Here!</a>
+                    <a className={saved ? "btn btn-secondary disabled" : "btn btn-primary text-light"} onClick={savejob} style={{marginLeft: '20px'}} disabled={saved} >{saved ? "Saved!" : "Add Job!"} </a>
                 </div>
                 <div className="col-md-8">
                     <div dangerouslySetInnerHTML={{ __html: jobInfo.description }} />
