@@ -101,6 +101,32 @@ router.post("/register", async (req, res) => {
     });
 });
 
+router.put("/user", async(req, res)=>{
+    // console.log(req.body, 'req.BODY');res.end();
+
+    let id = req.body.id;
+    let name = req.body.name;
+    let firstName = name.split(' ')[0];
+    let lastName = name.split(' ')[1];
+    let role = req.body.role;
+    let location = req.body.location;
+    let number = req.body.number;
+    let bio = req.body.bio;
+
+    try{
+        let result = await orm.updateData(
+            'user',
+            `firstName="${firstName}", lastName="${lastName}", role="${role}", location="${location}", bio="${bio}"`,
+            'id=${id}'
+        );
+        console.log(result, 'RESULT');
+        res.send(result);
+    }
+    catch{
+        res.send(false);
+    };
+});
+
 router.post("/savejob", async (req, res) => {
 
     let jobtitle = req.body.jobtitle;
@@ -121,5 +147,6 @@ router.put("/setup", async (req, res) => {
         res.send(result);
     })
 })
+
 
 module.exports = router;

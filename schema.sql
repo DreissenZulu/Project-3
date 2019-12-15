@@ -7,6 +7,7 @@ CREATE TABLE user(
     firstName VARCHAR(100),
     lastName VARCHAR(100),
     email VARCHAR(100),
+    phoneNumber VARCHAR(100),
     password VARCHAR(100) NOT NULL,
     bio VARCHAR(1000),
     city VARCHAR(100),
