@@ -12,21 +12,17 @@ CREATE TABLE user(
     city VARCHAR(100),
     country VARCHAR(100),
     role VARCHAR (100),
-    image_url VARCHAR (100)
+    image_url VARCHAR (100),
+    link1 VARCHAR(100),
+    link2 VARCHAR(100),
+    link3 VARCHAR(100)
 );
 
 CREATE TABLE savedjobs(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    jobtitle VARCHAR(1000),
-    userid VARCHAR(100)
-);
-
-CREATE TABLE links(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	userid INT,
-    link1 VARCHAR (100),
-    link2 VARCHAR (100),
-    link3 VARCHAR (100)
+    jobtitle VARCHAR(10000),
+    jobid INT,
+    userid INT
 );
 
 CREATE TABLE comments(
