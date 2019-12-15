@@ -88,26 +88,27 @@ router.post("/register", async (req, res) => {
     });
 });
 
+router.post("/savejob", async (req, res) => {
+
+    let jobtitle = req.body.jobtitle;
+    let jobid = req.body.jobid;
+    //let userid = req.body.userId;
+    let userid = 1;
+
+    orm.insertData(
+        'savedjobs', 'jobtitle, jobid, userid',
+        `"${jobtitle}","${jobid}","${userid}"`,
+        (result) => {
+            console.log(result)
+            res.send(result);
+        }
+    );
+})
+
 router.put("/setup", async (req, res) => {
     await orm.updateData('user', `role="${req.body.role}", city="${req.body.city}", country="${req.body.country}", image_url="${req.body.imageURL}", bio="${req.body.bio}"`, `id=${req.body.id}`, result => {
         res.send(result);
     })
 })
-router.post("/savejob", async (req, res) => {
-    
-            let jobtitle = req.body.jobtitle;
-            let jobid = req.body.jobid;
-            //let userid = req.body.userId;
-            let userid = 1;
-
-            orm.insertData(
-                'savedjobs', 'jobtitle, jobid, userid',
-                `"${jobtitle}","${jobid}","${userid}"`,
-                (result) => {
-                    console.log(result)
-                    res.send(result);
-                }
-            );
-        })
 
 module.exports = router;
