@@ -68,8 +68,8 @@ function LogIn() {
                 <h1 className="text-center">Log In</h1>
                 <form onSubmit={handleFormSubmit}>
                     <div className="form-group">
-                        <label><i><strong> Username</strong></i></label>
-                        <input className="form-control form-control-lg" id="user" onChange={handleInputChange} />
+                        <label><i><strong> Email</strong></i></label>
+                        <input type="email" className="form-control form-control-lg" id="user" onChange={handleInputChange} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="exampleInputPassword1"><i><strong> Password</strong></i></label>
