@@ -15,13 +15,13 @@ function SearchResults(props) {
         {props.results.map(post => {
           let time = post.post_date.split(" ")[1]
           return (
-            <div className="col-md-6 card">
+            <div className="col-md-12 card">
               <div className="row no-gutters">
-                <div className="col-md-4">
+                <div className="col-xs-2">
                   {/*The url needs to be split here since they smooshed two urls together*/}
-                  <img src={"https://" + post.company.logo.split("https://")[2]} className="card-img" alt="..." />
+                  <img style={{maxHeight: "128px"}} src={"https://" + post.company.logo.split("https://")[2]} className="card-img" alt="..." />
                 </div>
-                <div className="col-md-8">
+                <div className="col-xs-10">
                   <div className="card-body">
                     <Link className="card-title" to={"/post/" + post.id}>
                       <h5>{post.title}</h5>
@@ -46,16 +46,19 @@ function SearchResults(props) {
           return (
             <div className="col-md-6 card">
               <div className="row no-gutters">
-                <div className="col-md-3">
-                  <img src={user.image_url ? user.image_url : userPlaceholder} className="card-img" alt="User image" />
+                <div className="col-xs-2">
+                  <img style={{maxHeight: "128px"}} src={user.image_url ? user.image_url : userPlaceholder} className="card-img" alt="User image" />
                 </div>
-                <div className="col-md-9">
+                <div className="col-xs-9">
                   <div className="card-body">
                     <Link className="card-title" to={"/profile/" + user.id}>
                       <h5>{`${user.firstName} ${user.lastName}`}</h5>
                     </Link>
                     <p>{`${user.city}, ${user.country}`}</p>
                   </div>
+                </div>
+                <div className="col-xs-1">
+                  <button className="btn btn-primary" style={{marginTop: "10px", marginRight: "10px"}}><i class="fas fa-plus" aria-disabled="false"></i></button>
                 </div>
               </div>
             </div>
