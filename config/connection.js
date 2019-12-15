@@ -22,8 +22,8 @@ if (process.env.JAWSDB_URL) {
     // user: "root",
     // password: "steven123",
 
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
+    user: "root",
+    password: "testtest",
 
     database: "InFactDB"
   });

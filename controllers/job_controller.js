@@ -9,13 +9,14 @@ const orm = require('../config/orm');
 let router = express.Router();
 
 router.get("/search/:search", async (req, res) => {
-    let queryURL = `https://authenticjobs.com/api/?format=json&api_key=${process.env.AJ_API}&method=aj.jobs.search&keywords=${req.params.search}&perpage=10`
+    let queryURL = `https://authenticjobs.com/api/?format=json&api_key=cb2d8eec4216145cb45cf496d7b00323&method=aj.jobs.search&keywords=${req.params.search}&perpage=10`
     let results = await axios.get(queryURL)
+    console.log(results)
     res.send(results.data.listings.listing);
 })
 
 router.get("/api/post/:id", async (req, res) => {
-    let queryURL = `https://authenticjobs.com/api/?format=json&api_key=${process.env.AJ_API}&method=aj.jobs.get&id=${req.params.id}`
+    let queryURL = `https://authenticjobs.com/api/?format=json&api_key=cb2d8eec4216145cb45cf496d7b00323&method=aj.jobs.get&id=${req.params.id}`
     let results = await axios.get(queryURL)
     res.send(results.data);
 })
@@ -86,5 +87,22 @@ router.post("/register", async (req, res) => {
         }
     });
 });
+
+router.post("/savejob", async (req, res) => {
+    
+            let jobtitle = req.body.jobtitle;
+            let jobid = req.body.jobid;
+            //let userid = req.body.userId;
+            let userid = 1;
+
+            orm.insertData(
+                'savedjobs', 'jobtitle, jobid, userid',
+                `"${jobtitle}","${jobid}","${userid}"`,
+                (result) => {
+                    console.log(result)
+                    res.send(result);
+                }
+            );
+        })
 
 module.exports = router;
