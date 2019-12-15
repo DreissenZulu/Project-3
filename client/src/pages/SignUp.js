@@ -29,8 +29,8 @@ function SignUp() {
             sendObj.password = Object.values(formInput)[3];
 
             let url = '/register';
+            
             axios.post(url, sendObj)
-
             .then((data)=>{
                 /* Set insertId into localStrorage, redirect to profile page */
                 window.localStorage.setItem('currUser', data.data.insertId);

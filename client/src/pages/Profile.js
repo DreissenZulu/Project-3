@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import '../../public/css/profile.css';
 import ProfilePage from '../components/ProfilePage';
+import '../css/profile.css';
 // import InitializeUser from 'InitializeUser';
 
 function Profile() {

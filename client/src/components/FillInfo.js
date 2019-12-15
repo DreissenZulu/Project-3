@@ -2,6 +2,7 @@ import React from 'react';
 
 function FillInfo(props) {
     let jobInfo = props.jobInfo.listing;
+
     if (jobInfo) {
         return (
             <div className="row d-flex">
