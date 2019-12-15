@@ -24,6 +24,7 @@ function Landing() {
 
     function handleType(event) {
         setSearch({ ...search, type: event.target.value });
+        setResults([]);
     }
 
     async function submitSearch(event) {
@@ -40,7 +41,16 @@ function Landing() {
                 console.log(err)
             }
         } else if (search.type === "people") {
-            console.log("Here's where you call the database")
+            try {
+                let searchResults = await axios.get(`/api/users/`, {params: {query: search.query, location: search.location}})
+                if (searchResults.data.length === 0) {
+                    setResults("none");
+                } else {
+                    setResults(searchResults.data);
+                }
+            } catch (err) {
+                console.log(err)
+            }
         }
     }
 
