@@ -5,41 +5,15 @@ function ProfilePage(props) {
     let profileInfo = props.profileInfo;
 
     let activeField = null;
+    let currUser_localStorage = props.currUser.id;
+    let currUser_url = Number(props.profileID);
+    let sameUser = currUser_localStorage === currUser_url;
 
-    function isWithin(coords, elem){
-    	let x = coords[0];
-    	let y = coords[1];
-
-    	let elem_left   = elem.getBoundingClientRect().left;
-    	let elem_right  = elem.getBoundingClientRect().right;
-    	let elem_top    = elem.getBoundingClientRect().top;
-    	let elem_bottom = elem.getBoundingClientRect().bottom;
-
-    	if(x > elem_left
-    	&& x < elem_right
-    	&& y > elem_top
-    	&& y < elem_bottom){
-    		return true;
-    	}
-    	else{
-    		return false;
-    	};
-    };
 
     let docBody = document.querySelector('body');
     docBody.addEventListener('click', async(e)=>{
         updateBy_clickOut(e);
     });
-
-    let addComment = ()=>{
-        let html = `<div class="comment_plate" contenteditable="true"></div>`;
-
-        let comments_wrap = document.querySelector('.comments_wrap');
-        comments_wrap.insertAdjacentHTML('afterbegin', html);
-
-        let newlyAddedComment = document.querySelector('.comment_plate:first-of-type');
-        newlyAddedComment.focus();
-    };
 
     let create_updateObj = ()=>{
         let updateObj = {};
@@ -88,19 +62,6 @@ function ProfilePage(props) {
         };
     };
 
-    /* Updating a field involves:
-    - remove contenteditable
-    - if empty, add placeholder text back
-    - create and send updateObj to DB
-    - set activeField to null */
-    let updateField = async(thisField)=>{
-            thisField.removeAttribute('contenteditable');
-            fieldEmpty_getPlaceholder(thisField);
-            let updateObj = create_updateObj();
-            await axios.put(`/user`, updateObj);
-            activeField = null;
-    };
-
     let updateBy_clickOut = async(e)=>{
         let coords = [e.x, e.y];
         if(activeField != null
@@ -116,6 +77,97 @@ function ProfilePage(props) {
         };
     };
 
+    /* Updating a field involves:
+    - remove contenteditable
+    - if empty, add placeholder text back
+    - create and send updateObj to DB
+    - set activeField to null */
+    let updateField = async(thisField)=>{
+            thisField.removeAttribute('contenteditable');
+            fieldEmpty_getPlaceholder(thisField);
+            let updateObj = create_updateObj();
+            await axios.put(`/user`, updateObj);
+            activeField = null;
+    };
+
+
+    function isWithin(coords, elem){
+    	let x = coords[0];
+    	let y = coords[1];
+
+    	let elem_left   = elem.getBoundingClientRect().left;
+    	let elem_right  = elem.getBoundingClientRect().right;
+    	let elem_top    = elem.getBoundingClientRect().top;
+    	let elem_bottom = elem.getBoundingClientRect().bottom;
+
+    	if(x > elem_left
+    	&& x < elem_right
+    	&& y > elem_top
+    	&& y < elem_bottom){
+    		return true;
+    	}
+    	else{
+    		return false;
+    	};
+    };
+
+    let addComment = ()=>{
+
+        let html = `
+            <div class="comment_plate" contenteditable="true">
+                <div class="commentStarWrap" contenteditable="false">
+                    <i class="far fa-star 0"></i>
+                    <i class="far fa-star 1"></i>
+                    <i class="far fa-star 2"></i>
+                    <i class="far fa-star 3"></i>
+                    <i class="far fa-star 4"></i>
+                </div>
+            </div>
+        `;
+
+        let comments_wrap = document.querySelector('.comments_wrap');
+        comments_wrap.insertAdjacentHTML('afterbegin', html);
+
+        let wipeStars = ()=>{
+            let stars = document.querySelectorAll('.commentStarWrap > i');
+            for(let i = 0; i < stars.length; i++){
+                let star = stars[i];
+                star.classList.add('far');
+                star.classList.remove('fas');
+            };
+        };
+
+        let newlyAddedStarWrap = document.querySelector('.commentStarWrap:first-of-type');
+        newlyAddedStarWrap.addEventListener('click', function(e){
+            let target = e.target;
+            let stars = document.querySelectorAll('.commentStarWrap > i');
+            let rating = null;
+
+            for(let i = 0; i < stars.length; i++){
+                let star = stars[i];
+                if(target == star){
+                    rating = i;
+                };
+            };
+
+            for(let i = 0; i < stars.length; i++){
+                let star = stars[i];
+                if(i <= rating){
+                    star.classList.add('fas');
+                    star.classList.remove('far');
+                }
+                else{
+                    star.classList.add('far');
+                    star.classList.remove('fas');
+                };
+            };
+        });
+
+        let newlyAddedComment = document.querySelector('.comment_plate:first-of-type');
+        newlyAddedComment.focus();
+    };
+
+
     return (
         <div className="profile_wrap">
             <div className="profile_flex">
@@ -129,19 +181,19 @@ function ProfilePage(props) {
                             <i className="fas fa-star"></i>
                             <i className="far fa-star"></i>
                         </h3>
-                        <h1 className="profileName" onDoubleClick={editFieldInit} onKeyDown={updateBy_enter}>
+                        <h1 className="profileName" onDoubleClick={sameUser ? editFieldInit : ""} onKeyDown={sameUser ? updateBy_enter : ""}>
                             {`${profileInfo.firstName} ${profileInfo.lastName}`}
                         </h1>
-                        <p className="profileTitle" onDoubleClick={editFieldInit} onKeyDown={updateBy_enter}>
+                        <p className="profileTitle" onDoubleClick={sameUser ? editFieldInit : ""} onKeyDown={sameUser ? updateBy_enter : ""}>
                             {profileInfo.title ? profileInfo.title : "+ add a title"}
                         </p>
                         <div className="profileEmail">
                             {profileInfo.email}
                         </div>
-                        <div className="profileLocation" onDoubleClick={editFieldInit} onKeyDown={updateBy_enter}>
+                        <div className="profileLocation" onDoubleClick={sameUser ? editFieldInit : ""} onKeyDown={sameUser ? updateBy_enter : ""}>
                             {`${profileInfo.city} ${profileInfo.country}`}
                         </div>
-                        <div className="profileNumber" onDoubleClick={editFieldInit} onKeyDown={updateBy_enter}>
+                        <div className="profileNumber" onDoubleClick={sameUser ? editFieldInit : ""} onKeyDown={sameUser ? updateBy_enter : ""}>
                             {profileInfo.phoneNumber ? profileInfo.phoneNumber : "+ add a number"}
                         </div>
                         <div className="links_wrap">
@@ -151,22 +203,13 @@ function ProfilePage(props) {
                 </div> {/* END info_wrap */}
                 <div className="bioAndComments_wrap">
                     <div className="bio_wrap">
-                        <div className="bio_plate" onDoubleClick={editFieldInit} onKeyDown={updateBy_enter}>
+                        <div className="bio_plate" onDoubleClick={sameUser ? editFieldInit : ""} onKeyDown={sameUser ? updateBy_enter : ""}>
                             {profileInfo.bio ? profileInfo.bio : "+ add a bio"}
                         </div>
                     </div>
                     <div className="addCommentButton" onClick={addComment}>+</div>
                     <div className="comments_wrap">
-                        {/* <span className="comments_fade"></span> */}
-                        <div className="comment_plate">
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                        </div>
-                        <div className="comment_plate">
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                        </div>
-                        <div className="comment_plate">
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                        </div>
+
                     </div>
                 </div>
             </div>

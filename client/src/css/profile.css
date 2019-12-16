@@ -74,6 +74,7 @@
 }
 
 .bioAndComments_wrap {
+	width: 100%;
 	height: 100%;
 	background-color: var(--mainBack);
 
@@ -81,7 +82,7 @@
 }
 .bio_wrap {
 	width: 94%;
-	height: 35%;
+	height: 34.5%;
 }
 
 .addCommentButton {
@@ -119,6 +120,7 @@
 }
 
 .comment_plate {
+	position: relative;
 	width: 94%;
 	min-height: 50px;
 	max-height: 150px;
@@ -133,12 +135,29 @@
 	overflow-y: scroll;
 }
 
-.comments_fade {
+/* .comments_fade {
 	position: fixed;
 	display: block;
 	width: 94%;
 	margin: 0 auto 0;
 	border: 1px solid red;
+} */
+
+.commentStarWrap {
+	position: absolute;
+	right: 0;
+	top: 10px;
+	width: 130px;
+	height: 24px;
+	user-select: none;
+
+	/* border: 1px solid black; */
+}
+
+.commentStarWrap > i {
+	font-size: 17px;
+
+	/* border: 1px solid red; */
 }
 
 
