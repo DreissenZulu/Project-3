@@ -61,6 +61,16 @@ router.get("/api/jobs/:id/:jobid", (req, res) => {
     })
 })
 
+router.get("/api/people/:id", (req, res) => {
+    let id = Number(req.params.id);
+
+    orm.selectData("connections", "connectedid", `WHERE connecterid=${id}`, result => {
+        res.send(result)
+    })
+})
+
+
+
 router.get("/api/users/", (req, res) => {
     let query = req.query.query;
     let location = req.query.location;
@@ -161,6 +171,19 @@ router.post("/savejob", async (req, res) => {
     orm.insertData(
         'savedjobs', 'jobtitle, jobid, userid',
         `"${jobtitle}","${jobid}","${userid}"`,
+        (result) => {
+            res.send(result);
+        }
+    );
+})
+
+router.post("/adduser", async (req, res) => {
+    let userid = req.body.userId;
+    let friend = req.body.addedUser; 
+
+    orm.insertData(
+        'connections', 'connecterid, connectedid',
+        `"${userid}","${friend}"`,
         (result) => {
             res.send(result);
         }
