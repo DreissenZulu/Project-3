@@ -39,7 +39,7 @@ function Profile() {
     }
 
     return (
-        <ProfilePage profileInfo={profileInfo}/>
+        <ProfilePage profileInfo={profileInfo} profileID={profileID} currUser={currUser}/>
     )
 }
 

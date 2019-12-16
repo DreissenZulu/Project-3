@@ -49,6 +49,10 @@
 	color: black;
 }
 
+.stars_wrap {
+	margin-top: 10px;
+}
+
 .profileName {
 	height: 40px;
 	font-size: 32px;
@@ -74,6 +78,7 @@
 }
 
 .bioAndComments_wrap {
+	width: 100%;
 	height: 100%;
 	background-color: var(--mainBack);
 
@@ -81,30 +86,7 @@
 }
 .bio_wrap {
 	width: 94%;
-	height: 35%;
-}
-
-.addCommentButton {
-	width: 90px;
-	height: 30px;
-	margin-left: 3%;
-	background-color: rgb(100,130,170);
-	border-radius: 3px;
-	text-align: center;
-	line-height: 26px;
-	color: white;
-	font-size: 32px;
-	box-shadow: 1px 1px 0.5px 0px rgba(0,0,0,0.2);
-	cursor: pointer;
-	/* border: 1px solid red; */
-}
-
-.comments_wrap {
-	height: 65%;
-	padding-bottom: 60px;
-	overflow-y: scroll;
-
-	/* border: 1px solid red; */
+	height: 32.5%;
 }
 
 .bio_plate {
@@ -118,27 +100,80 @@
 	/* border: 1px solid blue; */
 }
 
+.addCommentButton {
+	width: 90px;
+	height: 30px;
+	position: absolute;
+	right: 2.2%;
+	margin-left: 3%;
+	background-color: rgb(100,130,170);
+	border-radius: 3px;
+	text-align: center;
+	line-height: 26px;
+	color: white;
+	font-size: 32px;
+	box-shadow: 1px 1px 0.5px 0px rgba(0,0,0,0.2);
+	cursor: pointer;
+	user-select: none;
+}
+
+.comments_wrap {
+	height: 65%;
+	margin-top: 28px;
+	padding-bottom: 60px;
+	overflow-y: scroll;
+
+	/* border: 1px solid red; */
+}
+
 .comment_plate {
+	position: relative;
 	width: 94%;
-	min-height: 50px;
-	max-height: 150px;
 	margin: 10px auto 0;
 	padding: 4%;
 	border-radius: 3px;;
-	/* background-color: rgb(70,115,160); */
 	background-color: rgb(100,130,170);
 	color: white;
 	font-size: 14px;
 	box-shadow: 1px 1px 0.5px 0px rgba(0,0,0,0.2);
+}
+
+.commentText {
+	width: 80%;
+	min-height: 50px;
+	max-height: 150px;
 	overflow-y: scroll;
 }
 
-.comments_fade {
-	position: fixed;
-	display: block;
-	width: 94%;
-	margin: 0 auto 0;
-	border: 1px solid red;
+.commentStarWrap {
+	position: absolute;
+	right: 0;
+	top: 10px;
+	width: 130px;
+	height: 24px;
+	cursor: pointer;
+	user-select: none;
+}
+
+.commentStarWrap > i {
+	font-size: 17px;
+	cursor: pointer;
+}
+
+.commentSubmitButton {
+	position: absolute;
+    right: 25px;
+    bottom: 15px;
+    width: 100px;
+    height: 32px;
+	border-radius: 3px;
+	background-color: #17a2b8;
+	color: white;
+	text-align: center;
+	line-height: 32px;
+	font-size: 17px;
+	cursor: pointer;
+	user-select: none;
 }
 
 
@@ -165,5 +200,9 @@
 	.info_wrap,
 	.bioAndComments_wrap {
 		width: 100%;
+	}
+
+	.addCommentButton {
+		right: 3%;
 	}
 }

@@ -5,7 +5,7 @@ import userPlaceholder from "../assets/Portrait_Placeholder.png";
 
 function SearchResults(props) {
 
-  let userID = JSON.parse(localStorage.getItem("currUser")).id;
+  let userID = (localStorage.getItem("currUser") ? JSON.parse(localStorage.getItem("currUser")).id : "noData");
 
   const [added, setAdded] = useState( "init" )
 
@@ -43,7 +43,7 @@ async function checkAdded(){
         <h1><i class="fas fa-unlink"></i> Uh oh, we couldn't find anything for {(props.search.query === "" || props.search.location === "") ? `${props.search.query}${props.search.location}` : `${props.search.query} in ${props.search.location}`}</h1>
       </div>
     )
-  } else if (props.search.type === "jobs") {
+  } else if (props.search.type === "jobs" && Array.isArray(props.results)) {
     return (
       <div className="row">
         {props.results.map(post => {
