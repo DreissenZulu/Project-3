@@ -2,17 +2,33 @@ const express = require("express");
 const axios = require("axios");
 const path = require("path");
 const orm = require('../config/orm');
-const connection = require("../config/connection.js");
+const indeed = require('indeed-scraper');
 // Import the test module to access database functions
 // const model = require("../models/test_models.js");
 
 // The router is like using app = express(), where the server is defined in another file
 let router = express.Router();
 
-router.get("/search/:search", async (req, res) => {
-    let queryURL = `https://authenticjobs.com/api/?format=json&api_key=cb2d8eec4216145cb45cf496d7b00323&method=aj.jobs.search&keywords=${req.params.search}&perpage=10`
+router.get("/search/:search/:location?", async (req, res) => {
+    const search = req.params.search
+    const location = req.params.location
+    
+    const queryOptions = {
+        host: 'www.indeed.com',
+        query: req.params.search,
+        city: req.params.location,
+        radius: '25',
+        level: 'entry_level',
+        jobType: 'freelance',
+        maxAge: '7',
+        sort: 'date',
+        limit: 10
+    };
+    let searchParams = `${search ? "&keywords="+search : ""}${location ? "&location="+location : ""}`
+    let queryURL = `https://authenticjobs.com/api/?format=json&api_key=cb2d8eec4216145cb45cf496d7b00323&method=aj.jobs.search${searchParams}&perpage=10`
     let results = await axios.get(queryURL)
-    console.log(results)
+    let indeedResults = await indeed.query(queryOptions)
+    console.log(indeedResults)
     res.send(results.data.listings.listing);
 })
 
@@ -44,6 +60,16 @@ router.get("/api/jobs/:id/:jobid", (req, res) => {
         }
     })
 })
+
+router.get("/api/people/:id", (req, res) => {
+    let id = Number(req.params.id);
+
+    orm.selectData("connections", "connectedid", `WHERE connecterid=${id}`, result => {
+        res.send(result)
+    })
+})
+
+
 
 router.get("/api/users/", (req, res) => {
     let query = req.query.query;
@@ -101,7 +127,7 @@ router.post("/register", async (req, res) => {
     });
 });
 
-router.put("/user", async(req, res)=>{
+router.put("/user", async (req, res) => {
     let id = req.body.id;
     let name = req.body.name;
     let firstName = name.split(' ')[0];
@@ -109,7 +135,7 @@ router.put("/user", async(req, res)=>{
     let title = req.body.title;
 
     let location = req.body.location;
-    if(location.indexOf(',') > -1){
+    if (location.indexOf(',') > -1) {
         let index = location.indexOf(',');
         let l1 = location.substring(0, index);
         let l2 = location.slice(index + 1);
@@ -121,12 +147,12 @@ router.put("/user", async(req, res)=>{
     let phoneNumber = req.body.number;
     let bio = req.body.bio;
 
-    try{
+    try {
         let result = await orm.updateData(
             'user',
             `firstName="${firstName}", lastName="${lastName}", title="${title}", city="${city}", country="${country}", phoneNumber="${phoneNumber}", bio="${bio}"`,
             `id=${id}`,
-            (result)=>{
+            (result) => {
                 res.send(result);
             }
         );
@@ -145,6 +171,19 @@ router.post("/savejob", async (req, res) => {
     orm.insertData(
         'savedjobs', 'jobtitle, jobid, userid',
         `"${jobtitle}","${jobid}","${userid}"`,
+        (result) => {
+            res.send(result);
+        }
+    );
+})
+
+router.post("/adduser", async (req, res) => {
+    let userid = req.body.userId;
+    let friend = req.body.addedUser; 
+
+    orm.insertData(
+        'connections', 'connecterid, connectedid',
+        `"${userid}","${friend}"`,
         (result) => {
             res.send(result);
         }

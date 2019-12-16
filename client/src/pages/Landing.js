@@ -31,7 +31,7 @@ function Landing() {
         event.preventDefault();
         if (search.type === "jobs") {
             try {
-                let searchResults = await axios.get(`/search/${search.query}`)
+                let searchResults = await axios.get(`/search/${search.query}/${search.location}`)
                 if (searchResults.data.length === 0) {
                     setResults("none");
                 } else {
