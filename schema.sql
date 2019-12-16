@@ -47,3 +47,9 @@ CREATE TABLE rating(
     rater_id INT,
     rated_id INT
 );
+
+CREATE TABLE connections(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	connecter_id INT,
+    connected_id INT,
+);
