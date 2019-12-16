@@ -12,7 +12,7 @@ let router = express.Router();
 router.get("/search/:search/:location?", async (req, res) => {
     const search = req.params.search
     const location = req.params.location
-    
+
     const queryOptions = {
         host: 'www.indeed.com',
         query: req.params.search,
@@ -162,6 +162,10 @@ router.put("/user", async (req, res) => {
     };
 });
 
+router.post("/comment", async(req, res)=>{
+    console.log(req.body, 'REQ.BODY');res.end();
+});
+
 router.post("/savejob", async (req, res) => {
 
     let jobtitle = req.body.jobtitle;
@@ -179,7 +183,7 @@ router.post("/savejob", async (req, res) => {
 
 router.post("/adduser", async (req, res) => {
     let userid = req.body.userId;
-    let friend = req.body.addedUser; 
+    let friend = req.body.addedUser;
 
     orm.insertData(
         'connections', 'connecter_id, connected_id',

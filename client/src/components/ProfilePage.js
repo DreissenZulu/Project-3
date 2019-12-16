@@ -114,7 +114,8 @@ function ProfilePage(props) {
     let addComment = ()=>{
 
         let html = `
-            <div class="comment_plate" contenteditable="true">
+            <div class="comment_plate">
+                <div class="commentText" contenteditable="true"></div>
                 <div class="commentStarWrap" contenteditable="false">
                     <i class="far fa-star 0"></i>
                     <i class="far fa-star 1"></i>
@@ -122,6 +123,7 @@ function ProfilePage(props) {
                     <i class="far fa-star 3"></i>
                     <i class="far fa-star 4"></i>
                 </div>
+                <div class="commentSubmitButton">Submit</div>
             </div>
         `;
 
@@ -137,11 +139,17 @@ function ProfilePage(props) {
             };
         };
 
-        let newlyAddedStarWrap = document.querySelector('.commentStarWrap:first-of-type');
+        let newlyAddedStarWrap = document.querySelector('.comment_plate:first-of-type > .commentStarWrap');
         newlyAddedStarWrap.addEventListener('click', function(e){
             let target = e.target;
-            let stars = document.querySelectorAll('.commentStarWrap > i');
+            let stars = this.children;
             let rating = null;
+
+            if(target.classList.contains('rated')){
+                target.classList.remove('rated');
+                wipeStars();
+                return;
+            };
 
             for(let i = 0; i < stars.length; i++){
                 let star = stars[i];
@@ -155,6 +163,10 @@ function ProfilePage(props) {
                 if(i <= rating){
                     star.classList.add('fas');
                     star.classList.remove('far');
+                    star.classList.remove('rated');
+                    if(i == rating){
+                        star.classList.add('rated');
+                    }
                 }
                 else{
                     star.classList.add('far');
@@ -163,8 +175,27 @@ function ProfilePage(props) {
             };
         });
 
-        let newlyAddedComment = document.querySelector('.comment_plate:first-of-type');
+        let newlyAddedComment = document.querySelector('.comment_plate:first-of-type > .commentText');
         newlyAddedComment.focus();
+
+        let commentSubmitButton = document.querySelector('.commentSubmitButton');
+        commentSubmitButton.addEventListener('click', async()=>{
+            /* Construct submitObj, which includes comment text and star rating */
+            let submitObj = {};
+                submitObj.comment_text = this.previousElementSibling.previousElementSibling.innerHTML;
+                submitObj.rating = null;
+            let stars = this.previousElementSibling.children;
+            for(let i = 0; i < stars.length; i++){
+                let star = stars[i];
+                if(star.classList.contains('rated')){
+                    submitObj.rating = i+1;
+                    break;
+                };
+            };
+
+            console.log(submitObj, 'submitObj');
+            // await axios.post("/comment", submitObj);
+        });
     };
 
 

@@ -30,6 +30,7 @@ CREATE TABLE savedjobs(
 CREATE TABLE comments(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	comment_text VARCHAR (100),
+    rating_value INT,
     poster_id INT,
     commenton_id INT
 );
@@ -46,4 +47,10 @@ CREATE TABLE rating(
 	rating_value INT,
     rater_id INT,
     rated_id INT
+);
+
+CREATE TABLE connections(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	connecter_id INT,
+    connected_id INT,
 );
