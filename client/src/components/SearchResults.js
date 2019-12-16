@@ -95,7 +95,7 @@ async function checkAdded(){
                   </div>
                 </div>
                 <div className="col-xs-1">
-                  <button className={added.includes(user.id) || userID === 0 ? "btn btn-secondary disabled" : "btn btn-primary"} disabled={added.includes(user.id)} value = {user.id} onClick={addUser} style={{marginTop: "10px", marginRight: "10px"}}><i class="fas fa-plus" aria-disabled="false"></i></button>
+                  {userID !== 0 ? <button className={added.includes(user.id) ? "btn btn-secondary disabled" : "btn btn-primary"} disabled={added.includes(user.id)} value = {user.id} onClick={addUser} style={{marginTop: "10px", marginRight: "10px"}}><i class="fas fa-plus"></i></button> : ""}
                 </div>
               </div>
             </div>
