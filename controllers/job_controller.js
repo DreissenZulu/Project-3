@@ -182,7 +182,7 @@ router.post("/adduser", async (req, res) => {
     let friend = req.body.addedUser; 
 
     orm.insertData(
-        'connections', 'connecterid, connectedid',
+        'connections', 'connecter_id, connected_id',
         `"${userid}","${friend}"`,
         (result) => {
             res.send(result);
