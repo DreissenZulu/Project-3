@@ -20,7 +20,7 @@ useEffect(() => {
 async function checkAdded(){
   if (added === "init") {
   let result = await axios.get(`/api/people/${userID}`)
-            setAdded(result.data.map(idObj => idObj.connectedid));
+            setAdded(result.data.map(idObj => idObj.connected_id));
   }
 }
 
