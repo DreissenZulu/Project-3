@@ -43,7 +43,7 @@ async function checkAdded(){
         <h1><i class="fas fa-unlink"></i> Uh oh, we couldn't find anything for {(props.search.query === "" || props.search.location === "") ? `${props.search.query}${props.search.location}` : `${props.search.query} in ${props.search.location}`}</h1>
       </div>
     )
-  } else if (props.search.type === "jobs") {
+  } else if (props.search.type === "jobs" && Array.isArray(props.results)) {
     return (
       <div className="row">
         {props.results.map(post => {
