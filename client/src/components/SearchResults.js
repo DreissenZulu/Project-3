@@ -5,7 +5,7 @@ import userPlaceholder from "../assets/Portrait_Placeholder.png";
 
 function SearchResults(props) {
 
-  let userID = JSON.parse(localStorage.getItem("currUser")).id;
+  let userID = (localStorage.getItem("currUser") ? JSON.parse(localStorage.getItem("currUser")).id : "noData");
 
   const [added, setAdded] = useState( "init" )
 
