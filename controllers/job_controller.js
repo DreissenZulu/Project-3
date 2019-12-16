@@ -64,7 +64,7 @@ router.get("/api/jobs/:id/:jobid", (req, res) => {
 router.get("/api/people/:id", (req, res) => {
     let id = Number(req.params.id);
 
-    orm.selectData("connections", "connectedid", `WHERE connecterid=${id}`, result => {
+    orm.selectData("connections", "connected_id", `WHERE connecter_id=${id}`, result => {
         res.send(result)
     })
 })
