@@ -58,8 +58,8 @@ function Landing() {
         <div>
             <div className="jumbotron">
                 <div className="container">
-                    <h1 className="display-4">Welcome to Working Title!</h1>
-                    <p className="lead">The job board for connecting Freelancers</p>
+                    <h1 className="display-4">Welcome to YuMi Jobs!</h1>
+                    <p className="lead">The name says it all</p>
                 </div>
             </div>
 

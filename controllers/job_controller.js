@@ -111,6 +111,41 @@ router.post("/register", async (req, res) => {
     });
 });
 
+router.put("/user", async(req, res)=>{
+    let id = req.body.id;
+    let name = req.body.name;
+    let firstName = name.split(' ')[0];
+    let lastName = name.split(' ')[1];
+    let title = req.body.title;
+
+    let location = req.body.location;
+    if(location.indexOf(',') > -1){
+        let index = location.indexOf(',');
+        let l1 = location.substring(0, index);
+        let l2 = location.slice(index + 1);
+        location = `${l1}${l2}`;
+    }
+    let city = location.split(' ')[0];
+    let country = location.split(' ')[1];
+
+    let phoneNumber = req.body.number;
+    let bio = req.body.bio;
+
+    try{
+        let result = await orm.updateData(
+            'user',
+            `firstName="${firstName}", lastName="${lastName}", title="${title}", city="${city}", country="${country}", phoneNumber="${phoneNumber}", bio="${bio}"`,
+            `id=${id}`,
+            (result)=>{
+                res.send(result);
+            }
+        );
+    }
+    catch{
+        res.send(false);
+    };
+});
+
 router.post("/savejob", async (req, res) => {
 
     let jobtitle = req.body.jobtitle;
@@ -144,5 +179,6 @@ router.put("/setup", async (req, res) => {
         res.send(result);
     })
 })
+
 
 module.exports = router;

@@ -41,7 +41,7 @@
 
 .stars_wrap,
 .profileName,
-.profileRole,
+.profileTitle,
 .profileEmail,
 .profileLocation,
 .profileNumber {
@@ -54,7 +54,11 @@
 	font-size: 32px;
 }
 
-.profileRole,
+.profileTitle {
+	font-size: 20px;
+}
+
+.profileTitle,
 .profileEmail,
 .profileLocation,
 .profileNumber {
@@ -75,10 +79,24 @@
 
 	/* border: 1px solid green; */
 }
-
 .bio_wrap {
 	width: 94%;
 	height: 35%;
+}
+
+.addCommentButton {
+	width: 90px;
+	height: 30px;
+	margin-left: 3%;
+	background-color: rgb(100,130,170);
+	border-radius: 3px;
+	text-align: center;
+	line-height: 26px;
+	color: white;
+	font-size: 32px;
+	box-shadow: 1px 1px 0.5px 0px rgba(0,0,0,0.2);
+	cursor: pointer;
+	/* border: 1px solid red; */
 }
 
 .comments_wrap {
@@ -88,6 +106,7 @@
 
 	/* border: 1px solid red; */
 }
+
 .bio_plate {
 	width: 65%;
 	max-height: 94%;
@@ -101,13 +120,17 @@
 
 .comment_plate {
 	width: 94%;
+	min-height: 50px;
+	max-height: 150px;
 	margin: 10px auto 0;
 	padding: 4%;
 	border-radius: 3px;;
 	/* background-color: rgb(70,115,160); */
 	background-color: rgb(100,130,170);
 	color: white;
+	font-size: 14px;
 	box-shadow: 1px 1px 0.5px 0px rgba(0,0,0,0.2);
+	overflow-y: scroll;
 }
 
 .comments_fade {
