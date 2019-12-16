@@ -143,6 +143,12 @@ function ProfilePage(props) {
             let stars = document.querySelectorAll('.commentStarWrap > i');
             let rating = null;
 
+            if(target.classList.contains('rated')){
+                target.classList.remove('rated');
+                wipeStars();
+                return;
+            };
+
             for(let i = 0; i < stars.length; i++){
                 let star = stars[i];
                 if(target == star){
@@ -155,6 +161,10 @@ function ProfilePage(props) {
                 if(i <= rating){
                     star.classList.add('fas');
                     star.classList.remove('far');
+                    star.classList.remove('rated');
+                    if(i == rating){
+                        star.classList.add('rated');
+                    }
                 }
                 else{
                     star.classList.add('far');
