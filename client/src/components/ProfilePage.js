@@ -140,7 +140,7 @@ function ProfilePage(props) {
         let newlyAddedStarWrap = document.querySelector('.commentStarWrap:first-of-type');
         newlyAddedStarWrap.addEventListener('click', function(e){
             let target = e.target;
-            let stars = document.querySelectorAll('.commentStarWrap > i');
+            let stars = this.children;
             let rating = null;
 
             if(target.classList.contains('rated')){
