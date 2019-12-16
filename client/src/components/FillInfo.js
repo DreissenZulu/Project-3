@@ -3,6 +3,9 @@ import axios from 'axios';
 
 function FillInfo(props) {
     let userID = JSON.parse(localStorage.getItem("currUser")).id;
+    if (userID === null) {
+        userID = 0
+    };
     let jobInfo = props.jobInfo.listing;
     const [saved, setSaved] = useState( false )
 
@@ -18,6 +21,9 @@ function FillInfo(props) {
     }
 
     function savejob(){
+        if (userID === 0) {
+            return
+        }
         let sendObj = {}
         sendObj.userId = userID;
         sendObj.jobtitle = jobInfo.title;
